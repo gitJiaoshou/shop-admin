@@ -21,7 +21,6 @@ export default {
         appKey: loginForm.appKey,
         ygwId: loginForm.account
       })
-      console.log(common.getBaseHeader())
       http.post({
         url: '/api/shop_user/user/admin/login',
         data: {
