@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="testLogin">
     <login-input></login-input>
   </div>
 </template>
@@ -15,6 +15,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .testLogin {
+    overflow: hidden;
+    height: 100vh;
+    background-image: url('../../assets/loginBackImg.jpg');
+    background-size: cover;
+  }
 </style>

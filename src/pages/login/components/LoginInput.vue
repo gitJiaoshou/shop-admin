@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px">
       <el-form-item label="AppKey" prop="appKey">
         <el-input v-model="loginForm.appKey"></el-input>
       </el-form-item>
@@ -11,8 +11,10 @@
         <el-input type="password" v-model="loginForm.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
-        <el-button @click="resetForm('loginForm')">重置</el-button>
+        <span class="nbsp"></span>
+        <el-button type="primary" size="medium" @click="submitForm('loginForm')">登录</el-button>
+        <span class="nbsp"></span>
+        <el-button type="primary" size="medium" @click="resetForm('loginForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -63,9 +65,21 @@ export default {
 </script>
 
 <style scoped>
+  .login >>> .el-form-item__label{
+    color: #409EFF;
+  }
+  .login >>> .el-button--medium{
+    padding: 10px 20px;
+    font-size: 30px;
+    border-radius: 30px;
+  }
   .login {
-    width: 20%;
-    margin-top: 150px;
-    margin-left: 35%;
+    overflow: hidden;
+    width: 45vh;
+    margin-top: 25vh;
+    margin-left: 70vh;
+  }
+  .nbsp {
+    padding-left: 5vh;
   }
 </style>
