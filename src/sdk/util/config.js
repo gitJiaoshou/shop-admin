@@ -10,11 +10,10 @@ class Config {
 
   /**
    * 初始化配置
-   * @param baseUrl
    * @param appKey
    * @param ygwId
    */
-  init ({baseUrl, appKey, ygwId}) {
+  init ({appKey, ygwId}) {
     this.config.appKey = appKey
     this.config.shopId = 'appKey=' + appKey + ';ygwId=' + ygwId + ';osType=H5'
     // eslint-disable-next-line no-unused-vars
