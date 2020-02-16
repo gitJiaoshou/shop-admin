@@ -33,7 +33,7 @@ export default {
         .then((res) => {
           console.log(res)
           if (res.data.code === 2000) {
-            console.log('登录成功')
+            this.$router.push('/home')
           } else {
             this.$message({
               showClose: true,
