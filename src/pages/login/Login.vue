@@ -32,9 +32,23 @@ export default {
       })
         .then((res) => {
           console.log(res)
+          if (res.data.code === 2000) {
+            console.log('登录成功')
+          } else {
+            this.$message({
+              showClose: true,
+              message: '登录失败',
+              type: 'error'
+            })
+          }
         })
+        // eslint-disable-next-line handle-callback-err
         .catch((err) => {
-          console.log(err)
+          this.$message({
+            showClose: true,
+            message: '登录失败',
+            type: 'error'
+          })
         })
     }
   }
