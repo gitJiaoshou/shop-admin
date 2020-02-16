@@ -13,6 +13,7 @@ module.exports = {
     proxyTable: {
       '/api':{ //匹配所有以'api'开头的请求路径
         target:'https://jiaoshoublog.cn:8443', //代理目标的基础路径
+        secure: true, //https打开
         changeOrigin:true,  //是否支持跨域
         pathRewrite:{ //重写路径：去掉路径中开头的'/api'
           '^/api':''
