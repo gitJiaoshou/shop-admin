@@ -33,6 +33,7 @@ export default {
         .then((res) => {
           console.log(res)
           if (res.data.code === 2000) {
+            localStorage.setItem('ms_username', loginForm.account)
             this.$router.push('/home')
           } else {
             this.$message({

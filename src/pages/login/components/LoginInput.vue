@@ -1,22 +1,33 @@
 <template>
-  <div class="login">
-    <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px">
-      <el-form-item label="AppKey" prop="appKey">
-        <el-input v-model="loginForm.appKey"></el-input>
-      </el-form-item>
-      <el-form-item label="账号" prop="account">
-        <el-input v-model="loginForm.account"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="loginForm.password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <span class="nbsp"></span>
-        <el-button type="primary" size="medium" @click="submitForm('loginForm')">登录</el-button>
-        <span class="nbsp"></span>
-        <el-button type="primary" size="medium" @click="resetForm('loginForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="login-wrap">
+    <div class="ms-login">
+      <div class="ms-title">后台管理系统</div>
+      <el-form :model="loginForm" :rules="rules" ref="login" label-width="0px" class="ms-content">
+        <el-form-item prop="appKey">
+          <el-input v-model="loginForm.appKey" placeholder="appKey">
+            <el-button slot="prepend" icon="el-icon-key"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="account">
+          <el-input v-model="loginForm.account" placeholder="account">
+            <el-button slot="prepend" icon="el-icon-user"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            type="password"
+            placeholder="password"
+            v-model="loginForm.password"
+            @keyup.enter.native="submitForm()"
+          >
+            <el-button slot="prepend" icon="el-icon-lock"></el-button>
+          </el-input>
+        </el-form-item>
+        <div class="login-btn">
+          <el-button type="primary" @click="submitForm()">登录</el-button>
+        </div>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -47,39 +58,56 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.login.validate(valid => {
         if (valid) {
           this.$emit('login', this.loginForm)
         } else {
+          this.$message.error('登录失败')
           console.log('error submit!!')
           return false
         }
       })
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
     }
   }
 }
 </script>
 
 <style scoped>
-  .login >>> .el-form-item__label{
-    color: #409EFF;
+  .login-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/loginBackImg.jpg');
+    background-size: 100%;
   }
-  .login >>> .el-button--medium{
-    padding: 10px 20px;
-    font-size: 30px;
-    border-radius: 30px;
+  .ms-title {
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    border-bottom: 1px solid #ddd;
   }
-  .login {
+  .ms-login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 350px;
+    margin: -190px 0 0 -175px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
     overflow: hidden;
-    width: 45vh;
-    margin-top: 25vh;
-    margin-left: 70vh;
   }
-  .nbsp {
-    padding-left: 5vh;
+  .ms-content {
+    padding: 30px 30px;
+  }
+  .login-btn {
+    text-align: center;
+  }
+  .login-btn button {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 10px;
   }
 </style>
