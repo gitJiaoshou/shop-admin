@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import Category from '../../../sdk/api/category'
 export default {
   name: 'addMenu',
   data () {
@@ -64,6 +65,16 @@ export default {
         }
       })
     }
+  },
+  mounted: function () {
+    console.log(Category)
+    // Category.queryByPid({
+    //   pid: 0,
+    //   onSuccess: (code, res) => {
+    //   },
+    //   onFailure: (code, err) => {
+    //   }
+    // })
   }
 }
 </script>
