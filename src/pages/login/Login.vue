@@ -21,17 +21,17 @@ export default {
         appKey: loginForm.appKey,
         ygwId: loginForm.account
       })
-      http.post({
+      http.request({
         url: '/api/shop_user/user/admin/login',
         data: {
           appKey: loginForm.appKey,
           account: loginForm.account,
           password: loginForm.password
         },
-        headers: common.getBaseHeader()
+        headers: common.getBaseHeader(),
+        method: 'POST'
       })
         .then((res) => {
-          console.log(res)
           if (res.data.code === 2000) {
             localStorage.setItem('ms_username', loginForm.account)
             this.$router.push('/home')
