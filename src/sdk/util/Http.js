@@ -26,7 +26,7 @@ class Http {
           url: url,
           headers: headers,
           params: data,
-          resolve: reject,
+          resolve: resolve,
           reject: reject
         })
       } else if (method === 'POST') {
@@ -34,7 +34,7 @@ class Http {
           url: url,
           data: data,
           headers: headers,
-          resolve: reject,
+          resolve: resolve,
           reject: reject
         })
       }
