@@ -1,9 +1,9 @@
-import CategoryModel from '../server/categoryModel'
+import model from '../server/categoryModel'
 
 /**
  * 对外API接口
  */
-class Category extends CategoryModel {
+class Category {
   /**
    * 根据pid查询
    * @param pid 默认查询所有一级菜单
@@ -11,7 +11,7 @@ class Category extends CategoryModel {
    * @param onFailure  失败回调
    */
   queryByPid = ({pid, onSuccess, onFailure}) => {
-    this.modelQueryByPid({pid: pid})
+    model.modelQueryByPid({pid: pid})
       .then((res) => {
         console.log(res)
       })

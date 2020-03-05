@@ -67,14 +67,13 @@ export default {
     }
   },
   mounted: function () {
-    console.log(Category)
-    // Category.queryByPid({
-    //   pid: 0,
-    //   onSuccess: (code, res) => {
-    //   },
-    //   onFailure: (code, err) => {
-    //   }
-    // })
+    Category.queryByPid({
+      pid: 0,
+      onSuccess: (code, res) => {
+      },
+      onFailure: (code, err) => {
+      }
+    })
   }
 }
 </script>
