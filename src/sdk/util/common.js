@@ -24,5 +24,13 @@ class Common {
       'Auth': JSON.stringify(Config.getAuth())
     }
   }
+
+  /**
+   * 获取用户信息
+   * @returns {null}
+   */
+  getUser = () => {
+    return Config.getUser()
+  }
 }
 export default new Common()

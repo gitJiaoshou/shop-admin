@@ -10,11 +10,11 @@
     <el-form-item label="名称" prop="name">
       <el-input v-model="menu.name" style="width: 30vh"></el-input>
     </el-form-item>
-    <el-form-item label="排序" prop="order">
-      <el-input v-model="menu.order" style="width: 30vh"></el-input>
+    <el-form-item label="排序" prop="sort">
+      <el-input v-model="menu.sort" style="width: 30vh"></el-input>
     </el-form-item>
-    <el-form-item label="描述" prop="desc">
-      <el-input v-model="menu.desc" style="width: 30vh"></el-input>
+    <el-form-item label="描述" prop="remark">
+      <el-input v-model="menu.remark" style="width: 30vh"></el-input>
     </el-form-item>
     <el-form-item label="状态">
       <el-switch
@@ -44,8 +44,8 @@ export default {
       menu: {
         pid: '',
         name: '',
-        order: '',
-        desc: '',
+        sort: '',
+        remark: '',
         status: '1'
       },
       rules: {
@@ -58,9 +58,27 @@ export default {
     addMenu () {
       this.$refs.menuForm.validate((valid) => {
         if (valid) {
-          console.log('sss')
+          Category.addMenu({
+            pid: this.menu.pid,
+            name: this.menu.name,
+            sort: this.menu.sort,
+            remark: this.menu.remark,
+            status: this.menu.status,
+            onSuccess: (code, res) => {
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+            },
+            onFailure: (code, err) => {
+              this.$message.error(err)
+            }
+          })
         } else {
-          console.log('error submit!!')
+          this.$message({
+            message: '请检查内容',
+            type: 'warning'
+          })
           return false
         }
       })
