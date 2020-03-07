@@ -9,7 +9,6 @@ class CategoryModel {
   modelQueryByPid = ({pid = 0}) => {
     let url = '/api/shop_user/goods/category/' + pid
     let headers = common.getBaseHeader()
-    console.log(headers)
     return new Promise((resolve, reject) => {
       HTTP.request({
         url: url,

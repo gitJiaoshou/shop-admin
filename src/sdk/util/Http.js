@@ -7,7 +7,6 @@ class Http {
    * 初始化操作
    */
   constructor () {
-    console.log('http 初始化完成')
     this.http = axios.create()
   }
 

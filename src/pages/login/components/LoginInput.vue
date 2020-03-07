@@ -64,7 +64,6 @@ export default {
           this.$emit('login', this.loginForm)
         } else {
           this.$message.error('登录失败')
-          console.log('error submit!!')
           return false
         }
       })
