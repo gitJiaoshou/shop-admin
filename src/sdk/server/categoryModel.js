@@ -1,6 +1,5 @@
 import HTTP from '../util/Http'
-import Common from '../util/common'
-
+import common from '../util/common'
 class CategoryModel {
   /**
    * 根据pid查询
@@ -9,7 +8,8 @@ class CategoryModel {
    */
   modelQueryByPid = ({pid = 0}) => {
     let url = '/api/shop_user/goods/category/' + pid
-    let headers = Common.getBaseHeader()
+    let headers = common.getBaseHeader()
+    console.log(headers)
     return new Promise((resolve, reject) => {
       HTTP.request({
         url: url,

@@ -66,7 +66,7 @@ export default {
       })
     }
   },
-  mounted: function () {
+  created: function () {
     Category.queryByPid({
       pid: 0,
       onSuccess: (code, res) => {

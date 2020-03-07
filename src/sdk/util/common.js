@@ -19,9 +19,9 @@ class Common {
    */
   getBaseHeader = () => {
     return {
-      'AppKey': Config.config.appKey,
-      'ShopId': Config.config.shopId,
-      'Auth': Config.config.auth
+      'AppKey': Config.getUser().appKey,
+      'ShopId': Config.getUser().shopId,
+      'Auth': JSON.stringify(Config.getAuth())
     }
   }
 }

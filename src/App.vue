@@ -6,7 +6,17 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  beforeCreate () {
+    let storageStore = localStorage.getItem('store')
+    if (storageStore) {
+      this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(storageStore)))
+      localStorage.removeItem('store')
+    }
+    window.addEventListener('unload', () => {
+      localStorage.setItem('store', JSON.stringify(this.$store.state))
+    })
+  }
 }
 </script>
 
