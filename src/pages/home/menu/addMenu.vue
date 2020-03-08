@@ -3,7 +3,8 @@
     <el-form-item label="上级菜单" prop="pid">
       <el-select v-model="menu.pid" placeholder="请选择上级菜单">
         <el-option label="一级菜单" value="0"></el-option>
-        <template>
+        <template v-for="item in pids">
+          <el-option :index="item.index" :key="item.index" :label="item.name" :value="item.id"></el-option>
         </template>
       </el-select>
     </el-form-item>
@@ -48,9 +49,10 @@ export default {
         remark: '',
         status: '1'
       },
+      pids: [],
       rules: {
-        pid: [{ required: true, message: '请选择上级菜单', trigger: 'change' }],
-        name: [{ required: true, message: '请填写名称', trigger: 'change' }]
+        pid: [{required: true, message: '请选择上级菜单', trigger: 'change'}],
+        name: [{required: true, message: '请填写名称', trigger: 'change'}]
       }
     }
   },
@@ -88,8 +90,11 @@ export default {
     Category.queryByPid({
       pid: 0,
       onSuccess: (code, res) => {
+        this.pids = res
       },
       onFailure: (code, err) => {
+        console.log(code)
+        console.log(err)
       }
     })
   }
