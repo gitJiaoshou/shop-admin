@@ -73,7 +73,8 @@ export default {
             },
             {
               index: 'listMenu',
-              title: '菜单列表'
+              title: '' +
+                '菜单列表'
             }
           ]
         },

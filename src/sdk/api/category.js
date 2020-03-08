@@ -24,16 +24,18 @@ class Category {
    * @param pid
    * @param name
    * @param sort
+   * @param images
    * @param remark
    * @param status
    * @param onSuccess
    * @param onFailure
    */
-  addMenu = ({pid, name, sort, remark, status, onSuccess, onFailure}) => {
+  addMenu = ({pid, name, sort, images, remark, status, onSuccess, onFailure}) => {
     model.modelAddMenu({
       pid: pid,
       name: name,
       sort: sort,
+      images: images,
       remark: remark,
       status: status
     })

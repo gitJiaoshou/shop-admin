@@ -50,7 +50,7 @@ class CategoryModel {
    * @param status状态
    * @returns {Promise<unknown>}
    */
-  modelAddMenu = ({pid, name, sort, remark, status}) => {
+  modelAddMenu = ({pid, name, sort, images, remark, status}) => {
     let url = '/api/shop_user/goods/category/'
     let headers = common.getBaseHeader()
     let data = {
@@ -58,6 +58,7 @@ class CategoryModel {
       name: name,
       appKey: common.getUser().appKey,
       sort: sort,
+      images: images,
       remark: remark,
       status: status
     }

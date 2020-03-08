@@ -14,6 +14,17 @@
     <el-form-item label="排序" prop="sort">
       <el-input v-model="menu.sort" style="width: 30vh"></el-input>
     </el-form-item>
+    <el-form-item label="图片">
+      <el-upload
+        class="avatar-uploader"
+        action="/api/shop_user/goods/file/upload"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="menu.images" :src="menu.images" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+    </el-form-item>
     <el-form-item label="描述" prop="remark">
       <el-input v-model="menu.remark" style="width: 30vh"></el-input>
     </el-form-item>
@@ -26,8 +37,8 @@
         inactive-color="#ff4949"
         active-text="上线"
         inactive-text="下线"
-        active-value="1"
-        inactive-value="0"
+        :active-value="1"
+        :inactive-value="0"
       ></el-switch>
     </el-form-item>
     <el-form-item>
@@ -45,6 +56,7 @@ export default {
       menu: {
         pid: '',
         name: '',
+        images: '',
         sort: '',
         remark: '',
         status: '1'
@@ -64,6 +76,7 @@ export default {
             pid: this.menu.pid,
             name: this.menu.name,
             sort: this.menu.sort,
+            images: this.menu.images,
             remark: this.menu.remark,
             status: this.menu.status,
             onSuccess: (code, res) => {
@@ -84,6 +97,20 @@ export default {
           return false
         }
       })
+    },
+    handleAvatarSuccess (res, file) {
+      console.log('---res:', res)
+      console.log('---file:', file)
+      this.menu.images = '/api/shop_user/goods/file/down?fileId=' + res
+    },
+    beforeAvatarUpload (file) {
+      console.log(file)
+      console.log(file.type)
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isLt2M
     }
   },
   created: function () {
@@ -104,5 +131,28 @@ export default {
 <style scoped>
 .status {
   padding-top: 0.8vh;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

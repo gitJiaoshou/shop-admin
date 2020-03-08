@@ -24,6 +24,11 @@ export default new Router({
           meta: { title: '添加菜单' }
         },
         {
+          path: '/listMenu',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/menu/listMenu.vue'),
+          meta: { title: '菜单列表' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }
