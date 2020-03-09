@@ -114,9 +114,11 @@ export default {
                 message: '修改成功',
                 type: 'success'
               })
+              this.$emit('onEdit')
             },
             onFailure: (code, err) => {
               this.$message.error(err)
+              this.$emit('onEdit')
             }
           })
         } else {

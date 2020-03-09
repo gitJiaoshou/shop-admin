@@ -62,9 +62,10 @@
           width="300">
           <template slot-scope="scope">
             <el-button
+              v-if="scope.row.pid == 0"
               icon="el-icon-search"
               circle
-              @click="handleClick(scope.row)">
+              @click="handleSub(scope.row)">
             </el-button>
             <el-button
               type="primary"
@@ -84,7 +85,7 @@
     </div>
     <div>
       <el-dialog title="编辑" :visible.sync="editVisible" width="50%">
-        <add-menu :edit="editForm"></add-menu>
+        <add-menu :edit="editForm" @onEdit="handleOnEdit()"></add-menu>
       </el-dialog>
     </div>
   </div>
@@ -100,9 +101,9 @@ export default {
   },
   methods: {
     // 刷新表单
-    refresh () {
+    refresh ({pid}) {
       Category.queryByPid({
-        pid: 0,
+        pid: pid,
         onSuccess: (code, res) => {
           this.tableData = res
         },
@@ -112,16 +113,18 @@ export default {
         }
       })
     },
-    handleClick (row) {
-      console.log(row)
+    handleSub (row) {
+      this.refresh({pid: row.id})
     },
     // 编辑
     editHandle (row) {
       this.editForm = row
       this.editVisible = true
     },
-    // 修改
-    saveEditHandle () {
+    // 修改成
+    handleOnEdit () {
+      this.editVisible = false
+      this.refresh({pid: 0})
     },
     // 删除
     deleteHandle (row) {
@@ -132,7 +135,7 @@ export default {
             message: res,
             type: 'success'
           })
-          this.refresh()
+          this.refresh({pid: 0})
         },
         onFailure: (code, err) => {
           this.$message.error(err)
@@ -152,7 +155,7 @@ export default {
         },
         onFailure: (code, err) => {
           this.$message.error(err)
-          this.refresh()
+          this.refresh({pid: 0})
         }
       })
     }
@@ -165,7 +168,7 @@ export default {
     }
   },
   created () {
-    this.refresh()
+    this.refresh({pid: 0})
   }
 }
 </script>
