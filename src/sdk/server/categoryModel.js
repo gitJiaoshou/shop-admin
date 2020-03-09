@@ -17,7 +17,7 @@ class CategoryModel {
         method: 'GET'
       })
         .then((res) => {
-          console.log('-----modelAddMenu res:', res)
+          console.log('-----modelQueryByPid res:', res)
           if (res.data.code === 2000) {
             resolve({
               code: res.data.code,
@@ -132,6 +132,46 @@ class CategoryModel {
           reject({
             code: 5000,
             msg: '修改失败'
+          })
+        })
+    })
+  }
+  /**
+   * 删除
+   * @param id
+   * @returns {Promise<unknown>}
+   */
+  modelDelete = ({id}) => {
+    let url = '/api/shop_user/goods/category/' + id
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'DELETE'
+      })
+        .then((res) => {
+          console.log('-----modelDelete res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----modelDelete error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '删除失败'
           })
         })
     })

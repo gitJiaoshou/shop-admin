@@ -65,5 +65,22 @@ class Category {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 删除
+   * @param id
+   */
+  delete = ({id, onSuccess, onFailure}) => {
+    model.modelDelete({
+      id: id
+    })
+      .then((res) => {
+        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Category()

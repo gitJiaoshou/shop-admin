@@ -61,11 +61,11 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleClick(scope.$index, scope.row)">Edit</el-button>
+          @click="handleClick(scope.row)">Edit</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleClick(scope.$index, scope.row)">Delete</el-button>
+          @click="deleteHandle(scope.row)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -76,8 +76,39 @@ import Category from '../../../sdk/api/category'
 export default {
   name: 'listMenu',
   methods: {
+    // 刷新表单
+    refresh () {
+      Category.queryByPid({
+        pid: 0,
+        onSuccess: (code, res) => {
+          this.tableData = res
+        },
+        onFailure: (code, err) => {
+          console.log(code)
+          console.log(err)
+        }
+      })
+    },
     handleClick (row) {
       console.log(row)
+    },
+    // 删除
+    deleteHandle (row) {
+      Category.delete({
+        id: row.id,
+        onSuccess: (code, res) => {
+          console.log(code)
+          console.log(res)
+          this.$message({
+            message: res,
+            type: 'success'
+          })
+          this.refresh()
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     },
     statusChange (row) {
       Category.changStatus({
@@ -93,6 +124,7 @@ export default {
         },
         onFailure: (code, err) => {
           this.$message.error(err)
+          this.refresh()
         }
       })
     }
@@ -104,16 +136,7 @@ export default {
     }
   },
   created: function () {
-    Category.queryByPid({
-      pid: 0,
-      onSuccess: (code, res) => {
-        this.tableData = res
-      },
-      onFailure: (code, err) => {
-        console.log(code)
-        console.log(err)
-      }
-    })
+    this.refresh()
   }
 }
 </script>
