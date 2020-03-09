@@ -81,7 +81,13 @@ export default {
         {
           icon: 'el-icon-s-tools',
           index: 'spec',
-          title: '规格管理'
+          title: '规格管理',
+          subs: [
+            {
+              index: 'addSpec',
+              title: '添加规格'
+            }
+          ]
         },
         {
           icon: 'el-icon-s-cooperation',

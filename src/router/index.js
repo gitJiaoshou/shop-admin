@@ -29,6 +29,11 @@ export default new Router({
           meta: { title: '菜单列表' }
         },
         {
+          path: '/addSpec',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/spec/AddSpec.vue'),
+          meta: { title: '添加规格' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }
