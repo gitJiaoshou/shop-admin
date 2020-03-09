@@ -60,5 +60,22 @@ class Spec {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 删除
+   * @param specId
+   */
+  delete = ({specId, onSuccess, onFailure}) => {
+    model.modelDelete({
+      specId: specId
+    })
+      .then((res) => {
+        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spec()

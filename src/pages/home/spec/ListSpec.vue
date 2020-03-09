@@ -89,13 +89,13 @@ export default {
     // 删除
     handleDelete (row) {
       Spec.delete({
-        id: row.id,
+        specId: row.specId,
         onSuccess: (code, res) => {
           this.$message({
             message: res,
             type: 'success'
           })
-          this.refresh({pid: 0})
+          this.refresh()
         },
         onFailure: (code, err) => {
           this.$message.error(err)

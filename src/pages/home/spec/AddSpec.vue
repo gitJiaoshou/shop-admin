@@ -62,8 +62,6 @@ export default {
     // 修改
     handleEdit () {
       this.$refs.menuForm.validate((valid) => {
-        console.log('handleEdit')
-        console.log(this.spec)
         if (valid) {
           Spec.update({
             specId: this.spec.specId,
@@ -107,30 +105,4 @@ export default {
 </script>
 
 <style scoped>
-  .status {
-    padding-top: 0.8vh;
-  }
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 360px;
-    height: 180px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
 </style>
