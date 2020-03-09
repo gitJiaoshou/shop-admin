@@ -34,6 +34,11 @@ export default new Router({
           meta: { title: '添加规格' }
         },
         {
+          path: '/listSpec',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/spec/ListSpec.vue'),
+          meta: { title: '规格列表' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }

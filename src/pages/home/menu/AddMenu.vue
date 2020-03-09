@@ -163,7 +163,6 @@ export default {
   // 计算
   computed: {
     imagesUrl () {
-      console.log('============')
       if (this.menu.images) {
         return '/api/shop_user/goods/file/down?fileId=' + this.menu.images
       }
@@ -172,9 +171,7 @@ export default {
   },
   watch: {
     edit () {
-      console.log('edit')
       this.menu = this.edit
-      console.log(this.menu)
     }
   }
 }

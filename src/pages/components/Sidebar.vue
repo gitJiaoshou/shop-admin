@@ -86,6 +86,10 @@ export default {
             {
               index: 'addSpec',
               title: '添加规格'
+            },
+            {
+              index: 'listSpec',
+              title: '规格列表'
             }
           ]
         },

@@ -37,5 +37,28 @@ class Spec {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 更新
+   * @param specId
+   * @param name
+   * @param unit
+   * @param remark
+   * @param onSuccess
+   * @param onFailure
+   */
+  update = ({specId, name, unit, remark, onSuccess, onFailure}) => {
+    model.modelUpdate({
+      specId: specId,
+      name: name,
+      unit: unit,
+      remark: remark
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spec()

@@ -10,7 +10,7 @@
       <el-input v-model="spec.desc" style="width: 30vh"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button v-if="this.edit"  type="primary" @click="handleAdd()">立即修改</el-button>
+      <el-button v-if="this.edit"  type="primary" @click="handleEdit()">立即修改</el-button>
       <el-button v-else type="primary" @click="handleAdd()">立即创建</el-button>
     </el-form-item>
   </el-form>
@@ -58,14 +58,49 @@ export default {
           return false
         }
       })
+    },
+    // 修改
+    handleEdit () {
+      this.$refs.menuForm.validate((valid) => {
+        console.log('handleEdit')
+        console.log(this.spec)
+        if (valid) {
+          Spec.update({
+            specId: this.spec.specId,
+            name: this.spec.name,
+            unit: this.spec.unit,
+            remark: this.spec.remark,
+            onSuccess: (code, res) => {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+            },
+            onFailure: (code, err) => {
+              this.$message.error(err)
+            }
+          })
+          this.$emit('onEdit')
+        } else {
+          this.$message({
+            message: '请检查内容',
+            type: 'warning'
+          })
+          return false
+        }
+      })
+    }
+  },
+  // created 生命周期
+  created () {
+    if (this.edit) {
+      this.spec = this.edit
     }
   },
   // 监听
   watch: {
     edit () {
-      console.log('edit')
-      this.menu = this.edit
-      console.log(this.menu)
+      this.spec = this.edit
     }
   }
 }

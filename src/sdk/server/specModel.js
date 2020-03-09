@@ -56,7 +56,8 @@ class SpecModel {
       name: name,
       unit: unit,
       remark: remark,
-      appKey: common.getUser().appKey
+      appKey: common.getUser().appKey,
+      status: 1
     }
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -86,6 +87,57 @@ class SpecModel {
           reject({
             code: 5000,
             msg: '插入数据失败'
+          })
+        })
+    })
+  }
+
+  /**
+   * 更新
+   * @param name
+   * @param unit
+   * @param remark
+   * @returns {Promise<unknown>}
+   */
+  modelUpdate = ({specId, name, unit, remark}) => {
+    let url = '/api/shop_user/goods/spec/'
+    let headers = common.getBaseHeader()
+    let data = {
+      specId: specId,
+      name: name,
+      unit: unit,
+      remark: remark,
+      appKey: common.getUser().appKey,
+      status: 1
+    }
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: data,
+        headers: headers,
+        method: 'PUT'
+      })
+        .then((res) => {
+          console.log('-----modelUpdate res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----modelUpdate error:', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '更新数据失败'
           })
         })
     })
