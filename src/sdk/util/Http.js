@@ -52,6 +52,14 @@ class Http {
           resolve: resolve,
           reject: reject
         })
+      } else if (method === 'PUT') {
+        this._put({
+          url: url,
+          data: data,
+          headers: headers,
+          resolve: resolve,
+          reject: reject
+        })
       }
     })
   }
@@ -142,6 +150,31 @@ class Http {
     return this.http({
       method: 'delete',
       params: data,
+      url: url,
+      headers: headers
+    })
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  }
+
+  /**
+   * 更新
+   * @param url
+   * @param headers
+   * @param data
+   * @param resolve
+   * @param reject
+   * @returns {Promise<AxiosResponse<any>>}
+   * @private
+   */
+  _put = ({url, headers, data = {}, resolve, reject}) => {
+    return this.http({
+      method: 'put',
+      data: data,
       url: url,
       headers: headers
     })

@@ -82,5 +82,36 @@ class Category {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 更新
+   * @param id
+   * @param pid
+   * @param name
+   * @param sort
+   * @param images
+   * @param remark
+   * @param status
+   * @param onSuccess
+   * @param onFailure
+   */
+  update = ({id, pid, name, sort, images, remark, status, onSuccess, onFailure}) => {
+    model.modelUpdate({
+      id: id,
+      pid: pid,
+      name: name,
+      sort: sort,
+      images: images,
+      remark: remark,
+      status: status
+    })
+      .then((res) => {
+        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Category()

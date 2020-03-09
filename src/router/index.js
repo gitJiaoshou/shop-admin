@@ -20,12 +20,12 @@ export default new Router({
         },
         {
           path: '/addMenu',
-          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/menu/addMenu.vue'),
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/menu/AddMenu.vue'),
           meta: { title: '添加菜单' }
         },
         {
           path: '/listMenu',
-          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/menu/listMenu.vue'),
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/menu/ListMenu.vue'),
           meta: { title: '菜单列表' }
         },
         {

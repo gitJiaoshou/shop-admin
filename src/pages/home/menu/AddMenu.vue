@@ -42,7 +42,8 @@
       ></el-switch>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="addMenu()">立即创建</el-button>
+      <el-button v-if="this.edit"  type="primary" @click="editMenu()">立即修改</el-button>
+      <el-button v-else type="primary" @click="addMenu()">立即创建</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -50,18 +51,13 @@
 <script>
 import Category from '../../../sdk/api/category'
 export default {
-  name: 'addMenu',
+  name: 'AddMenu',
+  props: {
+    edit: Object
+  },
   data () {
     return {
-      menu: {
-        pid: '',
-        name: '',
-        images: '',
-        sort: '',
-        remark: '',
-        status: '1'
-      },
-      imagesUrl: '',
+      menu: {status: '1'},
       pids: [],
       rules: {
         pid: [{required: true, message: '请选择上级菜单', trigger: 'change'}],
@@ -70,6 +66,7 @@ export default {
     }
   },
   methods: {
+    // 添加菜单
     addMenu () {
       this.$refs.menuForm.validate((valid) => {
         if (valid) {
@@ -99,15 +96,45 @@ export default {
         }
       })
     },
+    // 修改
+    editMenu () {
+      console.log(this.menu)
+      this.$refs.menuForm.validate((valid) => {
+        if (valid) {
+          Category.update({
+            id: this.menu.id,
+            pid: this.menu.pid,
+            name: this.menu.name,
+            sort: this.menu.sort,
+            images: this.menu.images,
+            remark: this.menu.remark,
+            status: this.menu.status,
+            onSuccess: (code, res) => {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+            },
+            onFailure: (code, err) => {
+              this.$message.error(err)
+            }
+          })
+        } else {
+          this.$message({
+            message: '修改失败',
+            type: 'warning'
+          })
+          return false
+        }
+      })
+    },
+    // 图片上传成功
     handleAvatarSuccess (res, file) {
       this.menu.images = res
-      console.log('---res:', res)
-      console.log('---file:', file)
-      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + res
+      console.log(this.menu)
     },
+    // 图片上传之前
     beforeAvatarUpload (file) {
-      console.log(file)
-      console.log(file.type)
       const isLt2M = file.size / 1024 / 1024 < 2
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
@@ -115,7 +142,11 @@ export default {
       return isLt2M
     }
   },
-  created: function () {
+  // created 生命周期
+  created () {
+    if (this.edit) {
+      this.menu = this.edit
+    }
     Category.queryByPid({
       pid: 0,
       onSuccess: (code, res) => {
@@ -126,6 +157,23 @@ export default {
         console.log(err)
       }
     })
+  },
+  // 计算
+  computed: {
+    imagesUrl () {
+      console.log('============')
+      if (this.menu.images) {
+        return '/api/shop_user/goods/file/down?fileId=' + this.menu.images
+      }
+      return ''
+    }
+  },
+  watch: {
+    edit () {
+      console.log('edit')
+      this.menu = this.edit
+      console.log(this.menu)
+    }
   }
 }
 </script>
