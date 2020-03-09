@@ -21,7 +21,7 @@
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
-        <img v-if="menu.images" :src="menu.images" class="avatar">
+        <img v-if="imagesUrl" :src="imagesUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
     </el-form-item>
@@ -61,6 +61,7 @@ export default {
         remark: '',
         status: '1'
       },
+      imagesUrl: '',
       pids: [],
       rules: {
         pid: [{required: true, message: '请选择上级菜单', trigger: 'change'}],
@@ -99,9 +100,10 @@ export default {
       })
     },
     handleAvatarSuccess (res, file) {
+      this.menu.images = res
       console.log('---res:', res)
       console.log('---file:', file)
-      this.menu.images = '/api/shop_user/goods/file/down?fileId=' + res
+      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + res
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -145,14 +147,14 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
+  width: 360px;
+  height: 180px;
   line-height: 178px;
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 </style>

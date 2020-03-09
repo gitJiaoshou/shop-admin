@@ -1,56 +1,71 @@
 <template>
   <el-table
     :data="tableData"
-    border
     style="width: 100%">
     <el-table-column
       fixed
       prop="id"
       label="id"
-      width="150">
+      width="200">
     </el-table-column>
     <el-table-column
       prop="name"
       label="名称"
-      width="120">
+      width="200">
     </el-table-column>
     <el-table-column
       prop="sort"
       label="排序"
-      width="120">
+      width="200">
     </el-table-column>
     <el-table-column
       prop="remark"
       label="描述"
-      width="120">
+      width="200">
+    </el-table-column>
+    <el-table-column
+      prop="images"
+      label="图标"
+      width="400">
+      <template slot-scope="scope">
+        <el-image
+          style="width: 50%; height: 50%"
+          :src="'/api/shop_user/goods/file/down?fileId='+scope.row.images">
+        </el-image>
+      </template>
     </el-table-column>
     <el-table-column
       prop="status"
       label="状态"
-      width="300">
+      width="200">
       <template slot-scope="scope">
-        <el-switch
-          class="status"
-          style="display: block"
-          v-model="scope.row.status"
-          name="scope.row.status"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          active-text="上线"
-          inactive-text="下线"
-          :active-value="1"
-          :inactive-value="0"
-        ></el-switch>
+        <div  @click = "statusChange(scope.row)">
+          <el-switch
+            style="display: block"
+            v-model="scope.row.status"
+            name="scope.row.status"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="上线"
+            inactive-text="下线"
+            :active-value="1"
+            :inactive-value="0"
+          ></el-switch>
+        </div>
       </template>
-
     </el-table-column>
     <el-table-column
       fixed="right"
       label="操作"
-      width="100">
+      width="200">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-        <el-button type="text" size="small">编辑</el-button>
+        <el-button
+          size="mini"
+          @click="handleClick(scope.$index, scope.row)">Edit</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleClick(scope.$index, scope.row)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -63,6 +78,23 @@ export default {
   methods: {
     handleClick (row) {
       console.log(row)
+    },
+    statusChange (row) {
+      Category.changStatus({
+        id: row.id,
+        status: row.status,
+        onSuccess: (code, res) => {
+          console.log(code)
+          console.log(res)
+          this.$message({
+            message: res,
+            type: 'success'
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     }
   },
 

@@ -67,10 +67,11 @@ export default {
         if (this.tagsList.length >= 8) {
           this.tagsList.shift()
         }
+        console.log(route)
         this.tagsList.push({
           title: route.meta.title,
           path: route.fullPath,
-          name: route.matched[1].components.default.name
+          name: route.matched[1].meta.title
         })
       }
       bus.$emit('tags', this.tagsList)

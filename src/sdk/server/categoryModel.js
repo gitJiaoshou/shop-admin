@@ -94,5 +94,47 @@ class CategoryModel {
         })
     })
   }
+
+  /**
+   * 修改状态
+   * @param id
+   * @param status
+   * @returns {Promise<unknown>}
+   */
+  modelStatus = ({id, status}) => {
+    let url = '/api/shop_user/goods/category/' + id + '/' + status
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'PATCH'
+      })
+        .then((res) => {
+          console.log('-----modelStatus res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----modelStatus error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '修改失败'
+          })
+        })
+    })
+  }
 }
 export default new CategoryModel()

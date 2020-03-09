@@ -36,6 +36,14 @@ class Http {
           resolve: resolve,
           reject: reject
         })
+      } else if (method === 'PATCH') {
+        this._patch({
+          url: url,
+          data: data,
+          headers: headers,
+          resolve: resolve,
+          reject: reject
+        })
       }
     })
   }
@@ -76,6 +84,31 @@ class Http {
   _post = ({url, headers, data = {}, resolve, reject}) => {
     return this.http({
       method: 'post',
+      data: data,
+      url: url,
+      headers: headers
+    })
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  }
+
+  /**
+   * patch请求
+   * @param url
+   * @param headers
+   * @param data
+   * @param resolve
+   * @param reject
+   * @returns {Promise<AxiosResponse<any>>}
+   * @private
+   */
+  _patch = ({url, headers, data = {}, resolve, reject}) => {
+    return this.http({
+      method: 'patch',
       data: data,
       url: url,
       headers: headers
