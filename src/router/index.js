@@ -44,6 +44,11 @@ export default new Router({
           meta: { title: '规格值' }
         },
         {
+          path: '/AddSpu',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/spu/AddSpu.vue'),
+          meta: { title: '添加spu' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }

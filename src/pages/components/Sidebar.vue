@@ -96,7 +96,13 @@ export default {
         {
           icon: 'el-icon-s-cooperation',
           index: 'SPU',
-          title: 'SPU管理'
+          title: 'SPU管理',
+          subs: [
+            {
+              index: 'AddSpu',
+              title: '添加SPU'
+            }
+          ]
         },
         {
           icon: 'el-icon-s-flag',
