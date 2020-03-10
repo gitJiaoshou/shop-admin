@@ -5,6 +5,11 @@
         :data="tableData"
         style="width: 100%">
         <el-table-column
+          prop="specId"
+          label="specId"
+          width="200">
+        </el-table-column>
+        <el-table-column
           prop="name"
           label="名称"
           width="200">
@@ -66,6 +71,7 @@ export default {
     refresh () {
       Spec.queryAll({
         onSuccess: (code, res) => {
+          console.log(res)
           this.tableData = res
         },
         onFailure: (code, err) => {
@@ -74,7 +80,15 @@ export default {
         }
       })
     },
-    handleSub () {
+    handleSub (row) {
+      console.log(row)
+      this.$router.push({
+        path: '/listSpecValue',
+        query: {
+          specId: row.specId,
+          name: row.name
+        }
+      })
     },
     // 编辑
     handleEdit (row) {

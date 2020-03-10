@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/home',
       component: () => import(/* webpackChunkName: "home" */ '../pages/components/Home.vue'),
-      meta: { title: '自述文件' },
+      meta: { title: '主页' },
       children: [
         {
           path: '/index',
@@ -37,6 +37,11 @@ export default new Router({
           path: '/listSpec',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/home/spec/ListSpec.vue'),
           meta: { title: '规格列表' }
+        },
+        {
+          path: '/listSpecValue',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/spec/ListSpecValue.vue'),
+          meta: { title: '规格值' }
         },
         {
           path: '/404',
