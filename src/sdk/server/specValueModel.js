@@ -131,5 +131,53 @@ class SpecValueModel {
         })
     })
   }
+
+  /**
+   * 更新
+   * @param id
+   * @param specId
+   * @param name
+   * @returns {Promise<unknown>}
+   */
+  modelUpdate = ({id, specId, name}) => {
+    let url = '/api/shop_user/goods/specValue/'
+    let headers = common.getBaseHeader()
+    let data = {
+      id: id,
+      specId: specId,
+      name: name
+    }
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: data,
+        headers: headers,
+        method: 'PUT'
+      })
+        .then((res) => {
+          console.log('-----SpecValueModel modelUpdate res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SpecValueModel modelUpdate error:', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '更新数据失败'
+          })
+        })
+    })
+  }
 }
 export default new SpecValueModel()

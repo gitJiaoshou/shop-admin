@@ -56,5 +56,28 @@ class SpecValue {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 更新
+   * @param id
+   * @param specId
+   * @param name
+   * @param onSuccess
+   * @param onFailure
+   */
+  update = ({id, specId, name, onSuccess, onFailure}) => {
+    model.modelUpdate({
+      id: id,
+      specId: specId,
+      name: name
+    })
+      .then((res) => {
+        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new SpecValue()
