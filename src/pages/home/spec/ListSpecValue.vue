@@ -2,15 +2,15 @@
   <el-row :gutter="20">
     <el-col :span="9">
       <div>
-        <el-form ref="menuForm" :rules="rules" label-width="10vh">
+        <el-form ref="menuForm" label-width="10vh">
           <div style="height: 5vh"></div>
-          <el-form-item label="specId" prop="name">
+          <el-form-item label="specId">
             <el-input v-model="specId" disabled style="width: 20vh"></el-input>
           </el-form-item>
-          <el-form-item label="规格名称" prop="name">
+          <el-form-item label="规格名称">
             <el-input v-model="specName" disabled style="width: 20vh"></el-input>
           </el-form-item>
-          <el-form-item label="规格值名称" prop="name">
+          <el-form-item label="规格值名称">
             <el-input v-model="specValueName" style="width: 20vh"></el-input>
           </el-form-item>
           <el-form-item>
@@ -79,10 +79,7 @@ export default {
       specValueName: '',
       specName: '',
       editForm: {},
-      tableData: [],
-      rules: {
-        name: [{required: true, message: '请填写名称', trigger: 'change'}]
-      }
+      tableData: []
     }
   },
   methods: {
@@ -93,6 +90,21 @@ export default {
     // 删除
     handleDelete (row) {
       console.log('handleDelete', row)
+      SpecValue.delete({
+        id: row.id,
+        onSuccess: (code, res) => {
+          this.$message({
+            message: res,
+            type: 'success'
+          })
+          console.log('============ r')
+          this.refresh()
+          console.log('============r')
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     },
     // 添加
     handleAdd () {
