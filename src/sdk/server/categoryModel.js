@@ -2,6 +2,44 @@ import HTTP from '../util/Http'
 import common from '../util/common'
 class CategoryModel {
   /**
+   * 查询所有
+   */
+  modeQueryAll = () => {
+    let url = '/api/shop_user/goods/category/'
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----CategoryModel modeQueryAll res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----CategoryModel modeQueryAll error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取菜单失败'
+          })
+        })
+    })
+  }
+  /**
    * 根据pid查询
    * @param pid 默认查询所有一级菜单
    * @returns {Promise<unknown>}

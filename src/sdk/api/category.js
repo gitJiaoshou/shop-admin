@@ -5,6 +5,20 @@ import model from '../server/categoryModel'
  */
 class Category {
   /**
+   * 查询所有
+   * @param onSuccess
+   * @param onFailure
+   */
+  queryAll = ({onSuccess, onFailure}) => {
+    model.modeQueryAll()
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
+  /**
    * 根据pid查询
    * @param pid 默认查询所有一级菜单
    * @param onSuccess  成功回调
