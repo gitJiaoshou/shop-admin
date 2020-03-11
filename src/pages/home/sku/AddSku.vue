@@ -46,7 +46,7 @@
       </el-form-item>
     </template>
     <el-form-item>
-      <el-button type="primary" @click="addMenu()">立即创建</el-button>
+      <el-button type="primary" @click="addSku()">立即创建</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    addMenu () {
+    addSku () {
       console.log(this.specsItme)
     },
     // spu改变时
