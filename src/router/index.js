@@ -54,6 +54,11 @@ export default new Router({
           meta: { title: 'spu列表' }
         },
         {
+          path: '/addSku',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/sku/AddSku.vue'),
+          meta: { title: '添加SKU' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }

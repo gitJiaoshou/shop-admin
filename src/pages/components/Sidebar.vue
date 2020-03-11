@@ -111,7 +111,17 @@ export default {
         {
           icon: 'el-icon-s-flag',
           index: 'SKU',
-          title: 'SKU管理'
+          title: 'SKU管理',
+          subs: [
+            {
+              index: 'addSKU',
+              title: '添加SKU'
+            },
+            {
+              index: 'listSKU',
+              title: 'SKU列表'
+            }
+          ]
         }
       ]
     }
