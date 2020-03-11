@@ -67,12 +67,6 @@
           width="300">
           <template slot-scope="scope">
             <el-button
-              v-if="scope.row.pid == 0"
-              icon="el-icon-search"
-              circle
-              @click="handleSub(scope.row)">
-            </el-button>
-            <el-button
               type="primary"
               icon="el-icon-edit"
               circle
