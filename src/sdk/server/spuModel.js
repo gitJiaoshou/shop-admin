@@ -232,5 +232,71 @@ class SpuModel {
         })
     })
   }
+
+  /**
+   * 更新
+   * @param id
+   * @param title
+   * @param subTitle
+   * @param price
+   * @param nowPrice
+   * @param categoryId
+   * @param status
+   * @param images
+   * @param bannerImgs
+   * @param tages
+   * @param specIds
+   * @param remark
+   * @returns {Promise<unknown>}
+   */
+  modelUpdate = ({id, title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tages, specIds, remark}) => {
+    let url = '/api/shop_user/goods/spu/'
+    let headers = common.getBaseHeader()
+    let data = {
+      id: id,
+      title: title,
+      subTitle: subTitle,
+      price: price,
+      nowPrice: nowPrice,
+      categoryId: categoryId,
+      status: status,
+      images: images,
+      bannerImgs: bannerImgs,
+      tages: tages,
+      specIds: specIds,
+      remark: remark
+    }
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: data,
+        headers: headers,
+        method: 'PUT'
+      })
+        .then((res) => {
+          console.log('-----SpuModel modelUpdate res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SpuModel modelUpdate error:', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '更新数据失败'
+          })
+        })
+    })
+  }
 }
 export default new SpuModel()

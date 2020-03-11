@@ -43,26 +43,11 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
     </el-form-item>
-    <el-form-item v-if="this.edit" label="编辑轮播图">
+    <el-form-item label="轮播图">
       <el-upload
         action="/api/shop_user/goods/file/upload"
         list-type="picture-card"
-        :on-preview="handlePictureCardPreview"
-        :on-success="handleBannerSuccess"
-        :on-remove="handleRemove">
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <template v-for="item in editDialogImages">
-          <img width="100%" :key="item.index" :src="'/api/shop_user/goods/file/down?fileId='+item" alt="">
-        </template>
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
-    </el-form-item>
-    <el-form-item v-else label="轮播图">
-      <el-upload
-        action="/api/shop_user/goods/file/upload"
-        list-type="picture-card"
+        :file-list="fileList"
         :on-preview="handlePictureCardPreview"
         :on-success="handleBannerSuccess"
         :on-remove="handleRemove">
@@ -107,7 +92,7 @@
       <el-input v-model="spu.remark" style="width: 30vh"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button v-if="this.edit"  type="primary" @click="handleAdd()">立即修改</el-button>
+      <el-button v-if="this.edit"  type="primary" @click="handleEdit()">立即修改</el-button>
       <el-button v-else type="primary" @click="handleAdd()">立即创建</el-button>
     </el-form-item>
   </el-form>
@@ -127,7 +112,6 @@ export default {
       categorys: [],
       spu: {},
       dialogImageUrl: '',
-      editDialogImages: [],
       imagesUrl: '',
       dialogVisible: false,
       dynamicTags: [],
@@ -135,6 +119,7 @@ export default {
       inputValue: '',
       specs: [],
       banners: new Map(),
+      fileList: [],
       rules: {
         null: [{required: true, message: '不能为空', trigger: 'change'}]
       }
@@ -143,11 +128,8 @@ export default {
   methods: {
     // 添加
     handleAdd () {
-      console.log(this.data)
-      debugger
       let tempBanners = []
       for (let value of this.banners.values()) {
-        console.log(value)
         tempBanners.push(value)
       }
       Spu.save({
@@ -161,7 +143,7 @@ export default {
         bannerImgs: JSON.stringify(tempBanners),
         tages: JSON.stringify(this.dynamicTags),
         specIds: JSON.stringify(this.spu.specIds),
-        remark: JSON.stringify(this.spu.remark),
+        remark: this.spu.remark,
         onSuccess: (code, res) => {
           this.$message({
             message: '添加成功',
@@ -172,6 +154,37 @@ export default {
           this.$message.error(err)
         }
       })
+    },
+    // 编辑
+    handleEdit () {
+      let tempBanners = []
+      for (let value of this.banners.values()) {
+        tempBanners.push(value)
+      }
+      Spu.update({
+        id: this.spu.id,
+        title: this.spu.title,
+        subTitle: this.spu.subTitle,
+        price: this.spu.price,
+        nowPrice: this.spu.nowPrice,
+        categoryId: this.spu.categoryId,
+        status: this.spu.status,
+        images: this.spu.images,
+        bannerImgs: JSON.stringify(tempBanners),
+        tages: JSON.stringify(this.dynamicTags),
+        specIds: JSON.stringify(this.spu.specIds),
+        remark: this.spu.remark,
+        onSuccess: (code, res) => {
+          this.$message({
+            message: '更新成功',
+            type: 'success'
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
+      this.$emit('onEdit')
     },
     // 图片上传成功
     handleAvatarSuccess (res, file) {
@@ -227,12 +240,20 @@ export default {
   },
   created () {
     if (this.edit) {
+      let url = '/api/shop_user/goods/file/down?fileId='
       this.spu = this.edit
       this.dynamicTags = JSON.parse(this.edit.tages)
       this.spu.specIds = JSON.parse(this.edit.specIds)
-      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + this.edit.images
-      this.editDialogImages = JSON.parse(this.edit.bannerImgs)
-      this.dialogVisible = true
+      this.imagesUrl = url + this.edit.images
+      let banners = JSON.parse(this.edit.bannerImgs)
+      for (let i = 0, len = banners.length; i < len; i++) {
+        let unit = {
+          name: i + '.png',
+          url: url + banners[i]
+        }
+        this.fileList.push(unit)
+        this.banners.set(unit.name, banners[i])
+      }
     }
     Category.queryAll({
       onSuccess: (code, res) => {

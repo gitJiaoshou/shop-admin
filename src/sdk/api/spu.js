@@ -112,5 +112,45 @@ class Spu {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 更新
+   * @param id
+   * @param title
+   * @param subTitle
+   * @param price
+   * @param nowPrice
+   * @param categoryId
+   * @param status
+   * @param images
+   * @param bannerImgs
+   * @param tages
+   * @param specIds
+   * @param remark
+   * @param onSuccess
+   * @param onFailure
+   */
+  update = ({id, title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tages, specIds, remark, onSuccess, onFailure}) => {
+    model.modelUpdate({
+      id: id,
+      title: title,
+      subTitle: subTitle,
+      price: price,
+      nowPrice: nowPrice,
+      categoryId: categoryId,
+      status: status,
+      images: images,
+      bannerImgs: bannerImgs,
+      tages: tages,
+      specIds: specIds,
+      remark: remark
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spu()

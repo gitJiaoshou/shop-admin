@@ -172,6 +172,8 @@ export default {
     },
     // 编辑
     handleOnEdit () {
+      this.editVisible = false
+      this.refresh()
     },
     // 删除
     deleteHandle (row) {
