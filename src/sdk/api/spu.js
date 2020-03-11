@@ -41,5 +41,20 @@ class Spu {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 获取数量
+   * @param onSuccess
+   * @param onFailure
+   */
+  size = ({onSuccess, onFailure}) => {
+    model.modeSize()
+      .then((res) => {
+        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spu()
