@@ -75,5 +75,24 @@ class Spu {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 修改状态
+   * @param id
+   * @param status
+   * @param onSuccess
+   * @param onFailure
+   */
+  status = ({id, status, onSuccess, onFailure}) => {
+    model.modelStatus({
+      id: id,
+      status: status
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spu()

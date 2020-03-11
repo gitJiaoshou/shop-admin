@@ -119,7 +119,20 @@ export default {
   methods: {
     // 修改状态
     statusChange (row) {
-      console.log(row)
+      Spu.status({
+        id: row.id,
+        status: row.status,
+        onSuccess: (code, res) => {
+          this.$message({
+            message: res,
+            type: 'success'
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+          // TODO: 此处需要刷新一下表单
+        }
+      })
     },
     // 查找sku
     handleSub (row) {
