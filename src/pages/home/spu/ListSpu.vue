@@ -98,23 +98,29 @@
         :total="pageTotal">
       </el-pagination>
     </div>
-<!--    <div>-->
-<!--      <el-dialog title="编辑" :visible.sync="editVisible" width="50%">-->
-<!--        <add-menu :edit="editForm" @onEdit="handleOnEdit()"></add-menu>-->
-<!--      </el-dialog>-->
-<!--    </div>-->
+    <div>
+      <el-dialog title="编辑" :visible.sync="editVisible" width="50%">
+        <add-spu :edit="editForm" @onEdit="handleOnEdit()"></add-spu>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
+import AddSpu from './AddSpu'
 import Spu from '../../../sdk/api/spu'
 export default {
   name: 'listMenu',
   data () {
     return {
       tableData: [],
-      pageTotal: 0
+      pageTotal: 0,
+      editVisible: false,
+      editForm: {}
     }
+  },
+  components: {
+    AddSpu
   },
   methods: {
     // 刷新数据
@@ -161,7 +167,11 @@ export default {
     },
     // 编辑
     editHandle (row) {
-      console.log(row)
+      this.editForm = row
+      this.editVisible = true
+    },
+    // 编辑
+    handleOnEdit () {
     },
     // 删除
     deleteHandle (row) {

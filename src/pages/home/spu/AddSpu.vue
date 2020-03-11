@@ -43,7 +43,23 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
     </el-form-item>
-    <el-form-item label="轮播图">
+    <el-form-item v-if="this.edit" label="编辑轮播图">
+      <el-upload
+        action="/api/shop_user/goods/file/upload"
+        list-type="picture-card"
+        :on-preview="handlePictureCardPreview"
+        :on-success="handleBannerSuccess"
+        :on-remove="handleRemove">
+        <i class="el-icon-plus"></i>
+      </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <template v-for="item in editDialogImages">
+          <img width="100%" :key="item.index" :src="'/api/shop_user/goods/file/down?fileId='+item" alt="">
+        </template>
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
+    </el-form-item>
+    <el-form-item v-else label="轮播图">
       <el-upload
         action="/api/shop_user/goods/file/upload"
         list-type="picture-card"
@@ -91,8 +107,8 @@
       <el-input v-model="spu.remark" style="width: 30vh"></el-input>
     </el-form-item>
     <el-form-item>
-<!--      <el-button v-if="this.edit"  type="primary" @click="handleEdit()">立即修改</el-button>-->
-      <el-button type="primary" @click="handleAdd()">立即创建</el-button>
+      <el-button v-if="this.edit"  type="primary" @click="handleAdd()">立即修改</el-button>
+      <el-button v-else type="primary" @click="handleAdd()">立即创建</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -103,11 +119,15 @@ import Spec from '../../../sdk/api/spec'
 import Spu from '../../../sdk/api/spu'
 export default {
   name: 'AddSpu',
+  props: {
+    edit: Object
+  },
   data () {
     return {
       categorys: [],
       spu: {},
       dialogImageUrl: '',
+      editDialogImages: [],
       imagesUrl: '',
       dialogVisible: false,
       dynamicTags: [],
@@ -123,6 +143,8 @@ export default {
   methods: {
     // 添加
     handleAdd () {
+      console.log(this.data)
+      debugger
       let tempBanners = []
       for (let value of this.banners.values()) {
         console.log(value)
@@ -204,6 +226,14 @@ export default {
     }
   },
   created () {
+    if (this.edit) {
+      this.spu = this.edit
+      this.dynamicTags = JSON.parse(this.edit.tages)
+      this.spu.specIds = JSON.parse(this.edit.specIds)
+      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + this.edit.images
+      this.editDialogImages = JSON.parse(this.edit.bannerImgs)
+      this.dialogVisible = true
+    }
     Category.queryAll({
       onSuccess: (code, res) => {
         this.categorys = res
@@ -220,6 +250,12 @@ export default {
         this.$message.error(err)
       }
     })
+  },
+  watch: {
+    edit () {
+      console.log('watch watch watch')
+      this.spu = this.edit
+    }
   }
 }
 </script>
