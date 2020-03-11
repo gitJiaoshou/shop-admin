@@ -99,8 +99,12 @@ export default {
           title: 'SPU管理',
           subs: [
             {
-              index: 'AddSpu',
+              index: 'addSpu',
               title: '添加SPU'
+            },
+            {
+              index: 'listSpu',
+              title: 'SPU列表'
             }
           ]
         },
