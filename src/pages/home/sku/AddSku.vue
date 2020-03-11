@@ -70,6 +70,15 @@ export default {
   methods: {
     addSku () {
       console.log(this.specsItme)
+      let specIdsTemp = []
+      for (let i = 0; i < this.specsItme.length; i++) {
+        let item = {
+          key: this.specs[i],
+          value: this.specsItme[i]
+        }
+        specIdsTemp.push(item)
+      }
+      console.log(JSON.stringify(specIdsTemp))
     },
     // spu改变时
     handleSpuChange (val) {
