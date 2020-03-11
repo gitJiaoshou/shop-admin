@@ -85,7 +85,6 @@
     <div>
       <el-pagination
         class="pageBar"
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :page-size="10"
         layout="prev, pager, next, jumper"
@@ -118,7 +117,7 @@ export default {
   },
   methods: {
     // 刷新数据
-    refresh () {
+    refresh ({index = 0}) {
       Spu.size({
         onSuccess: (code, res) => {
           this.pageTotal = res
@@ -128,8 +127,8 @@ export default {
         }
       })
       Spu.page({
-        index: 0,
-        limit: 10,
+        index: index,
+        limit: index + 10,
         onSuccess: (code, res) => {
           this.tableData = res
         },
@@ -151,13 +150,9 @@ export default {
         },
         onFailure: (code, err) => {
           this.$message.error(err)
-          this.refresh()
+          this.refresh({index: 0})
         }
       })
-    },
-    // 查找sku
-    handleSub (row) {
-      console.log(row)
     },
     // 编辑
     editHandle (row) {
@@ -167,7 +162,7 @@ export default {
     // 编辑
     handleOnEdit () {
       this.editVisible = false
-      this.refresh()
+      this.refresh({index: 0})
     },
     // 删除
     deleteHandle (row) {
@@ -178,7 +173,7 @@ export default {
             message: res,
             type: 'success'
           })
-          this.refresh()
+          this.refresh({index: 0})
         },
         onFailure: (code, err) => {
           this.$message.error(err)
@@ -186,15 +181,14 @@ export default {
       })
     },
     // 分页操作开始
-    handleSizeChange () {
-      console.log('handleSizeChange')
-    },
-    handleCurrentChange () {
-      console.log('handleCurrentChange')
+    handleCurrentChange (val) {
+      console.log('handleCurrentChange', val)
+      let index = (val - 1) * 10
+      this.refresh({index: index})
     }
   },
   created () {
-    this.refresh()
+    this.refresh({index: 0})
   }
 }
 </script>
