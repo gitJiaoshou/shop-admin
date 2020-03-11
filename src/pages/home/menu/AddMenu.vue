@@ -133,7 +133,6 @@ export default {
     // 图片上传成功
     handleAvatarSuccess (res, file) {
       this.menu.images = res
-      console.log(this.menu)
     },
     // 图片上传之前
     beforeAvatarUpload (file) {

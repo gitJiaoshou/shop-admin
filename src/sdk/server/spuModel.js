@@ -17,7 +17,7 @@ class SpuModel {
    * @param remark
    * @returns {Promise<unknown>}
    */
-  modelSave = ({title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tags, specIds, remark}) => {
+  modelSave = ({title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tages, specIds, remark}) => {
     let url = '/api/shop_user/goods/spu/'
     let headers = common.getBaseHeader()
     let data = {
@@ -29,7 +29,7 @@ class SpuModel {
       status: status,
       images: images,
       bannerImgs: bannerImgs,
-      tags: tags,
+      tages: tages,
       specIds: specIds,
       remark: remark
     }
