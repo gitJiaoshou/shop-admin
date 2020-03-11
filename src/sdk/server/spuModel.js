@@ -192,5 +192,45 @@ class SpuModel {
         })
     })
   }
+
+  /**
+   * 删除
+   * @param id
+   */
+  modelDelete = ({id}) => {
+    let url = '/api/shop_user/goods/spu/' + id
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'DELETE'
+      })
+        .then((res) => {
+          console.log('-----SpuModel modelDelete res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SpuModel modelDelete error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '删除失败'
+          })
+        })
+    })
+  }
 }
 export default new SpuModel()

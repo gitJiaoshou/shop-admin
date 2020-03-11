@@ -117,6 +117,27 @@ export default {
     }
   },
   methods: {
+    // 刷新数据
+    refresh () {
+      Spu.size({
+        onSuccess: (code, res) => {
+          this.pageTotal = res
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
+      Spu.page({
+        index: 0,
+        limit: 10,
+        onSuccess: (code, res) => {
+          this.tableData = res
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
+    },
     // 修改状态
     statusChange (row) {
       Spu.status({
@@ -130,7 +151,7 @@ export default {
         },
         onFailure: (code, err) => {
           this.$message.error(err)
-          // TODO: 此处需要刷新一下表单
+          this.refresh()
         }
       })
     },
@@ -144,7 +165,19 @@ export default {
     },
     // 删除
     deleteHandle (row) {
-      console.log(row)
+      Spu.delete({
+        id: row.id,
+        onSuccess: (code, res) => {
+          this.$message({
+            message: res,
+            type: 'success'
+          })
+          this.refresh()
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     },
     // 分页操作开始
     handleSizeChange () {
@@ -155,24 +188,7 @@ export default {
     }
   },
   created () {
-    Spu.size({
-      onSuccess: (code, res) => {
-        this.pageTotal = res
-      },
-      onFailure: (code, err) => {
-        this.$message.error(err)
-      }
-    })
-    Spu.page({
-      index: 0,
-      limit: 10,
-      onSuccess: (code, res) => {
-        this.tableData = res
-      },
-      onFailure: (code, err) => {
-        this.$message.error(err)
-      }
-    })
+    this.refresh()
   }
 }
 </script>
