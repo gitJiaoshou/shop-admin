@@ -70,7 +70,7 @@ class SpuModel {
    * 获取数量
    * @returns {Promise<unknown>}
    */
-  modeSize = () => {
+  modelSize = () => {
     let url = '/api/shop_user/goods/spu/size'
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
@@ -101,6 +101,52 @@ class SpuModel {
           reject({
             code: 5000,
             msg: '获取数量失败'
+          })
+        })
+    })
+  }
+
+  /**
+   * 分页查询
+   * @param index
+   * @param limit
+   * @returns {Promise<unknown>}
+   */
+  modelPage = ({index = '0', limit = '10'}) => {
+    let url = '/api/shop_user/goods/spu/page'
+    let headers = common.getBaseHeader()
+    let data = {
+      index: index,
+      limit: limit
+    }
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: data,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----SpuModel modelPage res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SpuModel modelPage error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取信息失败'
           })
         })
     })

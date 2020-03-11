@@ -47,9 +47,28 @@ class Spu {
    * @param onFailure
    */
   size = ({onSuccess, onFailure}) => {
-    model.modeSize()
+    model.modelSize()
       .then((res) => {
-        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
+
+  /**
+   * 分页查询
+   * @param index
+   * @param limit
+   * @param onSuccess
+   * @param onFailure
+   */
+  page = ({index, limit, onSuccess, onFailure}) => {
+    model.modelPage({
+      index: index,
+      limit: limit
+    })
+      .then((res) => {
         onSuccess(res.code, res.msg)
       })
       .catch((err) => {
