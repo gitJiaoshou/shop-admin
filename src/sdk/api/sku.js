@@ -86,5 +86,36 @@ class Sku {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 更新
+   * @param id
+   * @param spu
+   * @param price
+   * @param code
+   * @param stock
+   * @param status
+   * @param images
+   * @param specIds
+   * @param onSuccess
+   * @param onFailure
+   */
+  update = ({id, spu, price, code, stock, status, images, specIds, onSuccess, onFailure}) => {
+    model.modelUpdate({
+      id: id,
+      spu: spu,
+      price: price,
+      code: code,
+      stock: stock,
+      status: status,
+      images: images,
+      specIds: specIds
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Sku()

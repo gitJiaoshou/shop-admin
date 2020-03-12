@@ -72,6 +72,12 @@
           </template>
         </el-table-column>
         <el-table-column
+          v-if="false"
+          prop="editSpecIds"
+          label="隐藏内容"
+          width="200">
+        </el-table-column>
+        <el-table-column
           fixed="right"
           label="操作"
           width="300">
@@ -102,7 +108,7 @@
       </el-pagination>
     </div>
     <div>
-      <el-dialog title="编辑" :visible.sync="editVisible" width="50%">
+      <el-dialog title="编辑" :visible.sync="editVisible" width="40%">
         <add-sku :edit="editForm" @onEdit="handleOnEdit()"></add-sku>
       </el-dialog>
     </div>
@@ -143,8 +149,6 @@ export default {
         index: index,
         limit: index + 10,
         onSuccess: (code, res) => {
-          console.log('----------------1')
-          console.log(res)
           for (let sku of res) {
             // eslint-disable-next-line no-unused-vars
             let item = sku
@@ -153,6 +157,7 @@ export default {
               onSuccess: (code, res) => {
                 item.title = res.title
                 item.subTitle = res.subTitle
+                item.editSpecIds = res.specIds
                 skus.push(item)
               },
               onFailure: (code, err) => {
@@ -212,7 +217,6 @@ export default {
     },
     // 分页操作开始
     handleCurrentChange (val) {
-      console.log('handleCurrentChange', val)
       let index = (val - 1) * 10
       this.refresh({index: index})
     }

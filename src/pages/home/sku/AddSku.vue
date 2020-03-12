@@ -1,7 +1,12 @@
 <template>
   <el-form :model="sku" label-width="80px">
     <el-form-item label="spu">
-      <el-select v-model="sku.spu" placeholder="spu" style="width: 25vh" @change="handleSpuChange">
+      <el-select v-model="sku.spu" v-if="this.edit" disabled placeholder="spu" style="width: 25vh" @change="handleSpuChange">
+        <template v-for="item in spus">
+          <el-option :index="item.index" :key="item.id" :label="item.title" :value="item.id"></el-option>
+        </template>
+      </el-select>
+      <el-select v-model="sku.spu" v-else placeholder="spu" style="width: 25vh" @change="handleSpuChange">
         <template v-for="item in spus">
           <el-option :index="item.index" :key="item.id" :label="item.title" :value="item.id"></el-option>
         </template>
@@ -50,7 +55,8 @@
       </el-form-item>
     </template>
     <el-form-item>
-      <el-button type="primary" @click="addSku()">立即创建</el-button>
+      <el-button v-if="this.edit"  type="primary" @click="handleEdit()">立即修改</el-button>
+      <el-button v-else type="primary" @click="handleAdd()">立即创建</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -61,6 +67,9 @@ import Sku from '../../../sdk/api/sku'
 import Spec from '../../../sdk/api/spec'
 export default {
   name: 'AddSku',
+  props: {
+    edit: Object
+  },
   data () {
     return {
       sku: {
@@ -75,7 +84,8 @@ export default {
     }
   },
   methods: {
-    addSku () {
+    // 添加
+    handleAdd () {
       let specIdsTemp = []
       for (let i = 0; i < this.specsItme.length; i++) {
         let item = {
@@ -103,9 +113,45 @@ export default {
         }
       })
     },
+    // 编辑
+    handleEdit () {
+      let specIdsTemp = []
+      for (let i = 0; i < this.specsItme.length; i++) {
+        let item = {
+          key: this.specs[i].name,
+          value: this.specsItme[i]
+        }
+        specIdsTemp.push(item)
+      }
+      Sku.update({
+        id: this.sku.id,
+        spu: this.sku.spu,
+        price: this.sku.price,
+        code: this.sku.code,
+        stock: this.sku.stock,
+        status: this.sku.status,
+        images: this.sku.images,
+        specIds: JSON.stringify(specIdsTemp),
+        onSuccess: (code, res) => {
+          this.$message({
+            message: '修改成功',
+            type: 'success'
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
+      this.$emit('onEdit')
+    },
     // spu改变时
     handleSpuChange (val) {
+      this.specsItme = []
       let specIds = JSON.parse(this.spus.filter(item => item.id === val)[0].specIds)
+      this.changSpecIds(specIds)
+    },
+    // specIds改变时
+    changSpecIds (specIds) {
       // eslint-disable-next-line no-array-constructor
       let specs = new Array()
       for (let i = 0; i < specIds.length; i++) {
@@ -161,6 +207,21 @@ export default {
   },
   created () {
     this.refresh()
+    if (this.edit) {
+      this.specsItme = []
+      this.sku = this.edit
+      let specIds = JSON.parse(this.edit.editSpecIds)
+      this.changSpecIds(specIds)
+    }
+  },
+  watch: {
+    edit () {
+      this.specsItme = []
+      this.refresh()
+      this.sku = this.edit
+      let specIds = JSON.parse(this.edit.editSpecIds)
+      this.changSpecIds(specIds)
+    }
   }
 }
 </script>
