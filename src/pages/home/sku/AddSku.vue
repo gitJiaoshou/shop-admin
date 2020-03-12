@@ -41,8 +41,12 @@
       </el-upload>
     </el-form-item>
     <template v-for="(value,index) in specs">
-      <el-form-item :label="value" :key="index">
-        <el-input v-model="specsItme[index]" style="width: 25vh"></el-input>
+      <el-form-item :label="value.name" :key="index">
+        <el-select v-model="specsItme[index]" placeholder="规格值" style="width: 25vh">
+          <template v-for="item in value.values">
+            <el-option :index="item.index" :key="item.id" :label="item.name" :value="item.name"></el-option>
+          </template>
+        </el-select>
       </el-form-item>
     </template>
     <el-form-item>
@@ -54,6 +58,7 @@
 <script>
 import Spu from '../../../sdk/api/spu'
 import Sku from '../../../sdk/api/sku'
+import Spec from '../../../sdk/api/spec'
 export default {
   name: 'AddSku',
   data () {
@@ -74,7 +79,7 @@ export default {
       let specIdsTemp = []
       for (let i = 0; i < this.specsItme.length; i++) {
         let item = {
-          key: this.specs[i],
+          key: this.specs[i].name,
           value: this.specsItme[i]
         }
         specIdsTemp.push(item)
@@ -100,7 +105,23 @@ export default {
     },
     // spu改变时
     handleSpuChange (val) {
-      this.specs = JSON.parse(this.spus.filter(item => item.id === val)[0].specIds)
+      let specIds = JSON.parse(this.spus.filter(item => item.id === val)[0].specIds)
+      // eslint-disable-next-line no-array-constructor
+      let specs = new Array()
+      for (let i = 0; i < specIds.length; i++) {
+        Spec.queryBySpecId({
+          specId: specIds[i],
+          onSuccess: (code, res) => {
+            if (code === 2000 && res) {
+              specs.push(res)
+            }
+          },
+          onFailure: (code, err) => {
+            this.$message.error(err)
+          }
+        })
+      }
+      this.specs = specs
     },
     // 图片上传成功
     handleAvatarSuccess (res, file) {
@@ -117,8 +138,10 @@ export default {
     },
     // 刷新
     refresh () {
+      // 查询大小
       Spu.size({
         onSuccess: (code, res) => {
+          // 获取全量数据
           Spu.page({
             index: 0,
             limit: res,
