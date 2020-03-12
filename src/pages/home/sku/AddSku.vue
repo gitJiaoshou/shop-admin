@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     addSku () {
-      console.log(this.specsItme)
       let specIdsTemp = []
       for (let i = 0; i < this.specsItme.length; i++) {
         let item = {
@@ -105,7 +104,6 @@ export default {
     },
     // 图片上传成功
     handleAvatarSuccess (res, file) {
-      console.log('=========')
       this.sku.images = res
       this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + this.sku.images
     },
@@ -115,7 +113,6 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      console.log('beforeAvatarUpload')
       return isLt2M
     }
   },
@@ -127,7 +124,6 @@ export default {
           limit: res,
           onSuccess: (code, res) => {
             this.spus = res
-            console.log(this.spus)
           },
           onFailure: (code, err) => {
             this.$message.error(err)
