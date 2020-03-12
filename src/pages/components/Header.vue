@@ -58,6 +58,7 @@ export default {
     handleCommand (command) {
       if (command === 'loginout') {
         localStorage.removeItem('ms_username')
+        this.$store.dispatch('changUser', null)
         this.$router.push('/login')
       }
     },
