@@ -70,7 +70,24 @@ class Spec {
       specId: specId
     })
       .then((res) => {
-        console.log(res)
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
+
+  /**
+   * 根据specId查询
+   * @param specId
+   * @param onSuccess
+   * @param onFailure
+   */
+  queryBySpecId = ({specId, onSuccess, onFailure}) => {
+    model.modelQueryBySpecId({
+      specId: specId
+    })
+      .then((res) => {
         onSuccess(res.code, res.msg)
       })
       .catch((err) => {

@@ -56,5 +56,44 @@ class SkuModel {
         })
     })
   }
+
+  /**
+   * 获取数量
+   */
+  modelSize = () => {
+    let url = '/api/shop_user/goods/sku/size'
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----SkuModel modeSize res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SkuModel modeSize error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取数量失败'
+          })
+        })
+    })
+  }
 }
 export default new SkuModel()

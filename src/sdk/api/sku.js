@@ -32,5 +32,19 @@ class Sku {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 获取数量
+   * @param onSuccess
+   * @param onFailure
+   */
+  size = ({onSuccess, onFailure}) => {
+    model.modelSize()
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Sku()
