@@ -117,5 +117,22 @@ class Sku {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 删除
+   * @param id
+   * @param onSuccess
+   * @param onFailure
+   */
+  delete = ({id, onSuccess, onFailure}) => {
+    model.modelDelete({
+      id: id
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Sku()
