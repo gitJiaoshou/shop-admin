@@ -243,9 +243,12 @@ export default {
       let url = '/api/shop_user/goods/file/down?fileId='
       this.spu = this.edit
       this.dynamicTags = JSON.parse(this.edit.tages)
-      this.spu.specIds = JSON.parse(this.edit.specIds)
+      if (typeof this.edit.specIds === 'string') {
+        this.spu.specIds = JSON.parse(this.edit.specIds)
+      }
       this.imagesUrl = url + this.edit.images
       let banners = JSON.parse(this.edit.bannerImgs)
+      this.fileList = []
       for (let i = 0, len = banners.length; i < len; i++) {
         let unit = {
           name: i + '.png',
@@ -276,11 +279,14 @@ export default {
     edit () {
       console.log('watch watch watch')
       let url = '/api/shop_user/goods/file/down?fileId='
-      this.spu = this.edit
       this.dynamicTags = JSON.parse(this.edit.tages)
-      this.spu.specIds = JSON.parse(this.edit.specIds)
+      if (typeof this.edit.specIds === 'string') {
+        this.spu.specIds = JSON.parse(this.edit.specIds)
+      }
       this.imagesUrl = url + this.edit.images
       let banners = JSON.parse(this.edit.bannerImgs)
+      // 初始化一下
+      this.fileList = []
       for (let i = 0, len = banners.length; i < len; i++) {
         let unit = {
           name: i + '.png',
