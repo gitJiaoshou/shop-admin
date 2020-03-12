@@ -275,7 +275,20 @@ export default {
   watch: {
     edit () {
       console.log('watch watch watch')
+      let url = '/api/shop_user/goods/file/down?fileId='
       this.spu = this.edit
+      this.dynamicTags = JSON.parse(this.edit.tages)
+      this.spu.specIds = JSON.parse(this.edit.specIds)
+      this.imagesUrl = url + this.edit.images
+      let banners = JSON.parse(this.edit.bannerImgs)
+      for (let i = 0, len = banners.length; i < len; i++) {
+        let unit = {
+          name: i + '.png',
+          url: url + banners[i]
+        }
+        this.fileList.push(unit)
+        this.banners.set(unit.name, banners[i])
+      }
     }
   }
 }
