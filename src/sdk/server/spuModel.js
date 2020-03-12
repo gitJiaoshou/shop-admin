@@ -298,5 +298,46 @@ class SpuModel {
         })
     })
   }
+
+  /**
+   * 根据主键查询
+   * @param spu
+   * @returns {Promise<unknown>}
+   */
+  modelQueryBySpuId = ({spu}) => {
+    let url = '/api/shop_user/goods/spu/' + spu
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----SpuModel modelQueryBySpuId res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SpuModel modelQueryBySpuId error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取信息失败'
+          })
+        })
+    })
+  }
 }
 export default new SpuModel()

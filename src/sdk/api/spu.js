@@ -152,5 +152,23 @@ class Spu {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 根据主键查询
+   * @param spu
+   * @param onSuccess
+   * @param onFailure
+   */
+  queryBySpuId = ({spu, onSuccess, onFailure}) => {
+    model.modelQueryBySpuId({
+      spu: spu
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Spu()
