@@ -53,6 +53,7 @@
 
 <script>
 import Spu from '../../../sdk/api/spu'
+import Sku from '../../../sdk/api/sku'
 export default {
   name: 'AddSku',
   data () {
@@ -64,7 +65,8 @@ export default {
       },
       specs: [],
       specsItme: [],
-      spus: []
+      spus: [],
+      imagesUrl: ''
     }
   },
   methods: {
@@ -78,7 +80,24 @@ export default {
         }
         specIdsTemp.push(item)
       }
-      console.log(JSON.stringify(specIdsTemp))
+      Sku.save({
+        spu: this.sku.spu,
+        price: this.sku.price,
+        code: this.sku.code,
+        stock: this.sku.stock,
+        status: this.sku.status,
+        images: this.sku.images,
+        specIds: JSON.stringify(specIdsTemp),
+        onSuccess: (code, res) => {
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     },
     // spu改变时
     handleSpuChange (val) {
@@ -86,7 +105,9 @@ export default {
     },
     // 图片上传成功
     handleAvatarSuccess (res, file) {
+      console.log('=========')
       this.sku.images = res
+      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + this.sku.images
     },
     // 图片上传之前
     beforeAvatarUpload (file) {
@@ -94,16 +115,8 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
+      console.log('beforeAvatarUpload')
       return isLt2M
-    }
-  },
-  // 计算
-  computed: {
-    imagesUrl () {
-      if (this.sku.images) {
-        return '/api/shop_user/goods/file/down?fileId=' + this.sku.images
-      }
-      return ''
     }
   },
   created () {
