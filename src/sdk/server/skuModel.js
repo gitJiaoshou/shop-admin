@@ -140,5 +140,46 @@ class SkuModel {
         })
     })
   }
+
+  /**
+   * 修改上线下线状态
+   * @param id
+   * @param status
+   */
+  modelStatus = ({id, status}) => {
+    let url = '/api/shop_user/goods/sku/' + id + '/' + status
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'PATCH'
+      })
+        .then((res) => {
+          console.log('-----SkuModel modelStatus res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SkuModel modelStatus error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '修改失败'
+          })
+        })
+    })
+  }
 }
 export default new SkuModel()

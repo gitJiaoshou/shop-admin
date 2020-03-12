@@ -26,6 +26,21 @@
           width="200">
         </el-table-column>
         <el-table-column
+          prop="code"
+          label="编码"
+          width="200">
+        </el-table-column>
+        <el-table-column
+          prop="stock"
+          label="库存"
+          width="200">
+        </el-table-column>
+        <el-table-column
+          prop="specIds"
+          label="规格"
+          width="200">
+        </el-table-column>
+        <el-table-column
           prop="images"
           label="主图"
           width="400">
