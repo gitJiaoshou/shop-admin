@@ -59,6 +59,11 @@ export default new Router({
           meta: { title: '添加SKU' }
         },
         {
+          path: '/listSku',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/sku/ListSku.vue'),
+          meta: { title: 'SKU列表' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }

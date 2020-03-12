@@ -114,11 +114,11 @@ export default {
           title: 'SKU管理',
           subs: [
             {
-              index: 'addSKU',
+              index: 'addSku',
               title: '添加SKU'
             },
             {
-              index: 'listSKU',
+              index: 'listSku',
               title: 'SKU列表'
             }
           ]
