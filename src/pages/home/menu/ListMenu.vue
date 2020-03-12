@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>
+      <el-button style="float: right" type="primary" icon="el-icon-arrow-left" @click="handleBacktrack">返回</el-button>
+    </div>
+    <div>
       <el-table
         :data="tableData"
         style="width: 100%">
@@ -158,6 +161,10 @@ export default {
           this.refresh({pid: 0})
         }
       })
+    },
+    // 返回
+    handleBacktrack () {
+      this.refresh({pid: 0})
     }
   },
   data () {
