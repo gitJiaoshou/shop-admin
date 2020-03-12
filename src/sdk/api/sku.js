@@ -46,5 +46,25 @@ class Sku {
         onFailure(err.code, err.msg)
       })
   }
+
+  /**
+   * 分页
+   * @param index
+   * @param limit
+   * @param onSuccess
+   * @param onFailure
+   */
+  page = ({index, limit, onSuccess, onFailure}) => {
+    model.modelPage({
+      index: index,
+      limit: limit
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Sku()
