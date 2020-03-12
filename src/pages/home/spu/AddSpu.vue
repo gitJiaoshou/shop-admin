@@ -84,7 +84,7 @@
           v-for="item in specs"
           :key="item.specId"
           :label="item.name"
-          :value="item.name">
+          :value="item.specId">
         </el-option>
       </el-select>
     </el-form-item>
