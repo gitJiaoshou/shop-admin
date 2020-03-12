@@ -114,26 +114,30 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isLt2M
+    },
+    // 刷新
+    refresh () {
+      Spu.size({
+        onSuccess: (code, res) => {
+          Spu.page({
+            index: 0,
+            limit: res,
+            onSuccess: (code, res) => {
+              this.spus = res
+            },
+            onFailure: (code, err) => {
+              this.$message.error(err)
+            }
+          })
+        },
+        onFailure: (code, err) => {
+          this.$message.error(err)
+        }
+      })
     }
   },
   created () {
-    Spu.size({
-      onSuccess: (code, res) => {
-        Spu.page({
-          index: 0,
-          limit: res,
-          onSuccess: (code, res) => {
-            this.spus = res
-          },
-          onFailure: (code, err) => {
-            this.$message.error(err)
-          }
-        })
-      },
-      onFailure: (code, err) => {
-        this.$message.error(err)
-      }
-    })
+    this.refresh()
   }
 }
 </script>
