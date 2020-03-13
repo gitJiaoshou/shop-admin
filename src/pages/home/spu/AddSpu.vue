@@ -35,7 +35,7 @@
     <el-form-item label="主图">
       <el-upload
         class="avatar-uploader"
-        action="/api/shop_user/goods/file/upload"
+        action="/api/shop_goods/file/upload"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
@@ -45,7 +45,7 @@
     </el-form-item>
     <el-form-item label="轮播图">
       <el-upload
-        action="/api/shop_user/goods/file/upload"
+        action="/api/shop_goods/file/upload"
         list-type="picture-card"
         :file-list="fileList"
         :on-preview="handlePictureCardPreview"
@@ -189,7 +189,7 @@ export default {
     // 图片上传成功
     handleAvatarSuccess (res, file) {
       this.spu.images = res
-      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + res
+      this.imagesUrl = '/api/shop_goods/file/down?fileId=' + res
       this.$message({
         message: file.name + '上传成功',
         type: 'success'
@@ -240,7 +240,7 @@ export default {
   },
   created () {
     if (this.edit) {
-      let url = '/api/shop_user/goods/file/down?fileId='
+      let url = '/api/shop_goods/file/down?fileId='
       this.spu = this.edit
       this.dynamicTags = JSON.parse(this.edit.tages)
       if (typeof this.edit.specIds === 'string') {
@@ -278,7 +278,7 @@ export default {
   watch: {
     edit () {
       console.log('watch watch watch')
-      let url = '/api/shop_user/goods/file/down?fileId='
+      let url = '/api/shop_goods/file/down?fileId='
       this.dynamicTags = JSON.parse(this.edit.tages)
       if (typeof this.edit.specIds === 'string') {
         this.spu.specIds = JSON.parse(this.edit.specIds)

@@ -13,7 +13,7 @@ class SkuModel {
    * @param specIds
    */
   modelSave = ({spu, price, code, stock, status, images, specIds}) => {
-    let url = '/api/shop_user/goods/sku/'
+    let url = '/api/shop_goods/sku/'
     let headers = common.getBaseHeader()
     let data = {
       spu: spu,
@@ -61,7 +61,7 @@ class SkuModel {
    * 获取数量
    */
   modelSize = () => {
-    let url = '/api/shop_user/goods/sku/size'
+    let url = '/api/shop_goods/sku/size'
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -102,7 +102,7 @@ class SkuModel {
    * @param limit
    */
   modelPage = ({index = '0', limit = '10'}) => {
-    let url = '/api/shop_user/goods/sku/page'
+    let url = '/api/shop_goods/sku/page'
     let headers = common.getBaseHeader()
     let data = {
       index: index,
@@ -147,7 +147,7 @@ class SkuModel {
    * @param status
    */
   modelStatus = ({id, status}) => {
-    let url = '/api/shop_user/goods/sku/' + id + '/' + status
+    let url = '/api/shop_goods/sku/' + id + '/' + status
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -194,7 +194,7 @@ class SkuModel {
    * @param specIds
    */
   modelUpdate = ({id, spu, price, code, stock, status, images, specIds}) => {
-    let url = '/api/shop_user/goods/sku/'
+    let url = '/api/shop_goods/sku/'
     let headers = common.getBaseHeader()
     let data = {
       id: id,
@@ -244,7 +244,7 @@ class SkuModel {
    * @param id
    */
   modelDelete = ({id}) => {
-    let url = '/api/shop_user/goods/sku/' + id
+    let url = '/api/shop_goods/sku/' + id
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({

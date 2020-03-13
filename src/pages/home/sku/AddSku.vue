@@ -37,7 +37,7 @@
     <el-form-item label="图片">
       <el-upload
         class="avatar-uploader"
-        action="/api/shop_user/goods/file/upload"
+        action="/api/shop_goods/file/upload"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
@@ -172,7 +172,7 @@ export default {
     // 图片上传成功
     handleAvatarSuccess (res, file) {
       this.sku.images = res
-      this.imagesUrl = '/api/shop_user/goods/file/down?fileId=' + this.sku.images
+      this.imagesUrl = '/api/shop_goods/file/down?fileId=' + this.sku.images
     },
     // 图片上传之前
     beforeAvatarUpload (file) {

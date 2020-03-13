@@ -5,7 +5,7 @@ class CategoryModel {
    * 查询所有
    */
   modeQueryAll = () => {
-    let url = '/api/shop_user/goods/category/'
+    let url = '/api/shop_goods/category/'
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -45,7 +45,7 @@ class CategoryModel {
    * @returns {Promise<unknown>}
    */
   modelQueryByPid = ({pid = 0}) => {
-    let url = '/api/shop_user/goods/category/' + pid
+    let url = '/api/shop_goods/category/' + pid
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -89,7 +89,7 @@ class CategoryModel {
    * @returns {Promise<unknown>}
    */
   modelAddMenu = ({pid, name, sort, images, remark, status}) => {
-    let url = '/api/shop_user/goods/category/'
+    let url = '/api/shop_goods/category/'
     let headers = common.getBaseHeader()
     let data = {
       pid: pid,
@@ -140,7 +140,7 @@ class CategoryModel {
    * @returns {Promise<unknown>}
    */
   modelStatus = ({id, status}) => {
-    let url = '/api/shop_user/goods/category/' + id + '/' + status
+    let url = '/api/shop_goods/category/' + id + '/' + status
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -180,7 +180,7 @@ class CategoryModel {
    * @returns {Promise<unknown>}
    */
   modelDelete = ({id}) => {
-    let url = '/api/shop_user/goods/category/' + id
+    let url = '/api/shop_goods/category/' + id
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -226,7 +226,7 @@ class CategoryModel {
    * @param status
    */
   modelUpdate = ({id, pid, name, sort, images, remark, status}) => {
-    let url = '/api/shop_user/goods/category/'
+    let url = '/api/shop_goods/category/'
     let headers = common.getBaseHeader()
     let data = {
       id: id,

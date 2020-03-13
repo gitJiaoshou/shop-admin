@@ -10,7 +10,7 @@ class SpecValueModel {
    * @returns {Promise<unknown>}
    */
   modelSave = ({specId, name}) => {
-    let url = '/api/shop_user/goods/specValue/'
+    let url = '/api/shop_goods/specValue/'
     let headers = common.getBaseHeader()
     let data = {
       name: name,
@@ -56,7 +56,7 @@ class SpecValueModel {
    * @returns {Promise<unknown>}
    */
   modelQueryBySpecId = ({specId}) => {
-    let url = '/api/shop_user/goods/specValue/' + specId
+    let url = '/api/shop_goods/specValue/' + specId
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -97,7 +97,7 @@ class SpecValueModel {
    * @returns {Promise<unknown>}
    */
   modelDelete = ({id}) => {
-    let url = '/api/shop_user/goods/specValue/' + id
+    let url = '/api/shop_goods/specValue/' + id
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -140,7 +140,7 @@ class SpecValueModel {
    * @returns {Promise<unknown>}
    */
   modelUpdate = ({id, specId, name}) => {
-    let url = '/api/shop_user/goods/specValue/'
+    let url = '/api/shop_goods/specValue/'
     let headers = common.getBaseHeader()
     let data = {
       id: id,

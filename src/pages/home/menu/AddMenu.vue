@@ -17,7 +17,7 @@
     <el-form-item label="图片">
       <el-upload
         class="avatar-uploader"
-        action="/api/shop_user/goods/file/upload"
+        action="/api/shop_goods/file/upload"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
@@ -163,7 +163,7 @@ export default {
   computed: {
     imagesUrl () {
       if (this.menu.images) {
-        return '/api/shop_user/goods/file/down?fileId=' + this.menu.images
+        return '/api/shop_goods/file/down?fileId=' + this.menu.images
       }
       return ''
     }

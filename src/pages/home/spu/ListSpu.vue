@@ -37,7 +37,7 @@
           <template slot-scope="scope">
             <el-image
               style="width: 50%; height: 50%"
-              :src="'/api/shop_user/goods/file/down?fileId='+scope.row.images">
+              :src="'/api/shop_goods/file/down?fileId='+scope.row.images">
             </el-image>
           </template>
         </el-table-column>

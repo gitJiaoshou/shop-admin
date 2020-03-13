@@ -18,7 +18,7 @@ class SpuModel {
    * @returns {Promise<unknown>}
    */
   modelSave = ({title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tages, specIds, remark}) => {
-    let url = '/api/shop_user/goods/spu/'
+    let url = '/api/shop_goods/spu/'
     let headers = common.getBaseHeader()
     let data = {
       title: title,
@@ -71,7 +71,7 @@ class SpuModel {
    * @returns {Promise<unknown>}
    */
   modelSize = () => {
-    let url = '/api/shop_user/goods/spu/size'
+    let url = '/api/shop_goods/spu/size'
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -113,7 +113,7 @@ class SpuModel {
    * @returns {Promise<unknown>}
    */
   modelPage = ({index = '0', limit = '10'}) => {
-    let url = '/api/shop_user/goods/spu/page'
+    let url = '/api/shop_goods/spu/page'
     let headers = common.getBaseHeader()
     let data = {
       index: index,
@@ -158,7 +158,7 @@ class SpuModel {
    * @param status
    */
   modelStatus = ({id, status}) => {
-    let url = '/api/shop_user/goods/spu/' + id + '/' + status
+    let url = '/api/shop_goods/spu/' + id + '/' + status
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -198,7 +198,7 @@ class SpuModel {
    * @param id
    */
   modelDelete = ({id}) => {
-    let url = '/api/shop_user/goods/spu/' + id
+    let url = '/api/shop_goods/spu/' + id
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
@@ -250,7 +250,7 @@ class SpuModel {
    * @returns {Promise<unknown>}
    */
   modelUpdate = ({id, title, subTitle, price, nowPrice, categoryId, status, images, bannerImgs, tages, specIds, remark}) => {
-    let url = '/api/shop_user/goods/spu/'
+    let url = '/api/shop_goods/spu/'
     let headers = common.getBaseHeader()
     let data = {
       id: id,
@@ -305,7 +305,7 @@ class SpuModel {
    * @returns {Promise<unknown>}
    */
   modelQueryBySpuId = ({spu}) => {
-    let url = '/api/shop_user/goods/spu/' + spu
+    let url = '/api/shop_goods/spu/' + spu
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
