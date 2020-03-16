@@ -64,6 +64,16 @@ export default new Router({
           meta: { title: 'SKU列表' }
         },
         {
+          path: '/addBanner',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/banner/AddBanner.vue'),
+          meta: { title: '添加banner' }
+        },
+        {
+          path: '/listBanner',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/banner/ListBanner.vue'),
+          meta: { title: 'banner列表' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }

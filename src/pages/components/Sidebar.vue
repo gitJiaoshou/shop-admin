@@ -122,6 +122,21 @@ export default {
               title: 'SKU列表'
             }
           ]
+        },
+        {
+          icon: 'el-icon-s-flag',
+          index: 'Banner',
+          title: 'Banner管理',
+          subs: [
+            {
+              index: 'addBanner',
+              title: '添加Banner'
+            },
+            {
+              index: 'listBanner',
+              title: 'banner列表'
+            }
+          ]
         }
       ]
     }
