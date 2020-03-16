@@ -133,10 +133,13 @@ export default {
   },
   watch: {
     edit () {
-      this.refresh()
       console.log('watch watch watch')
       let url = '/api/shop_goods/file/down?fileId='
       this.imagesUrl = url + this.edit.images
+      this.banner = this.edit
+      console.log('this.edit:', this.edit)
+      console.log('this.banner:', this.banner)
+      this.refresh()
     }
   }
 }

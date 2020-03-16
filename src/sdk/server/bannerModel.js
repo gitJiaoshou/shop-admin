@@ -56,7 +56,7 @@ class BannerModel {
    * @returns {Promise<unknown>}
    */
   modelQuery = () => {
-    let url = '/api/shop_goods/banner'
+    let url = '/api/shop_goods/banner/'
     let headers = common.getBaseHeader()
     return new Promise((resolve, reject) => {
       HTTP.request({
