@@ -79,6 +79,11 @@ export default new Router({
           meta: { title: '添加六宫格' }
         },
         {
+          path: '/listBodyBanner',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/body/ListBodyBanner.vue'),
+          meta: { title: '六宫格列表' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }
