@@ -137,6 +137,21 @@ export default {
               title: 'banner列表'
             }
           ]
+        },
+        {
+          icon: 'el-icon-s-flag',
+          index: 'BodyBanner',
+          title: '六宫格管理',
+          subs: [
+            {
+              index: 'addBodyBanner',
+              title: '添加六宫格'
+            },
+            {
+              index: 'listBodyBanner',
+              title: '六宫格列表'
+            }
+          ]
         }
       ]
     }

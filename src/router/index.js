@@ -74,6 +74,11 @@ export default new Router({
           meta: { title: 'banner列表' }
         },
         {
+          path: '/addBodyBanner',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/body/AddBodyBanner.vue'),
+          meta: { title: '添加六宫格' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }
