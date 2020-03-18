@@ -124,7 +124,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-s-flag',
+          icon: 'el-icon-picture',
           index: 'Banner',
           title: 'Banner管理',
           subs: [
@@ -139,7 +139,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-s-flag',
+          icon: 'el-icon-menu',
           index: 'BodyBanner',
           title: '六宫格管理',
           subs: [
