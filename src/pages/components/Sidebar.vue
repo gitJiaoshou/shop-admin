@@ -124,6 +124,17 @@ export default {
           ]
         },
         {
+          icon: 'el-icon-menu',
+          index: 'order',
+          title: '订单管理',
+          subs: [
+            {
+              index: 'sendOrder',
+              title: '发货'
+            }
+          ]
+        },
+        {
           icon: 'el-icon-picture',
           index: 'Banner',
           title: 'Banner管理',

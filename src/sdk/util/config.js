@@ -14,6 +14,7 @@ class Config {
     let user = {}
     user.appKey = appKey
     user.shopId = 'appKey=' + appKey + ';ygwId=' + ygwId + ';osType=H5'
+    user.ygwId = ygwId
     // eslint-disable-next-line no-unused-vars
     let auth = {
       createTime: common.getTimeStamp(),

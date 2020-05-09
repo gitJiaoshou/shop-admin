@@ -84,6 +84,11 @@ export default new Router({
           meta: { title: '六宫格列表' }
         },
         {
+          path: '/sendOrder',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/order/SendOrder.vue'),
+          meta: { title: '发货' }
+        },
+        {
           path: '/404',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/components/404.vue'),
           meta: { title: '404' }
