@@ -21,5 +21,22 @@ class Order {
         onFailure(err.code, err.msg)
       })
   }
+  /**
+   * 查询订单详情
+   * @param orderId
+   * @param onSuccess
+   * @param onFailure
+   */
+  queryOsku = ({orderId, onSuccess, onFailure}) => {
+    model.modelQueryOsku({
+      orderId: orderId
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
 }
 export default new Order()

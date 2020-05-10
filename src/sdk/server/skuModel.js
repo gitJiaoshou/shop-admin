@@ -97,6 +97,46 @@ class SkuModel {
   }
 
   /**
+   *根据主键查询详情
+   * @param sku
+   * @returns {Promise<unknown>}
+   */
+  modelQueryById = ({sku}) => {
+    let url = '/api/shop_goods_c/sku/' + sku
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----SkuModel modelQueryById res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----SkuModel modelPage error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取信息失败'
+          })
+        })
+    })
+  }
+  /**
    * 分页
    * @param index
    * @param limit

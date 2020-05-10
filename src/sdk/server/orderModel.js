@@ -40,5 +40,46 @@ class OrderModel {
         })
     })
   }
+
+  /**
+   * 查询定的那详情
+   * @param orderId
+   * @returns {Promise<unknown>}
+   */
+  modelQueryOsku = ({orderId}) => {
+    let url = '/api/shop_order_api/osku/' + orderId
+    let headers = common.getBaseHeader()
+    return new Promise((resolve, reject) => {
+      HTTP.request({
+        url: url,
+        data: null,
+        headers: headers,
+        method: 'GET'
+      })
+        .then((res) => {
+          console.log('-----OrderModel modelQueryOsku res:', res)
+          if (res.data.code === 2000) {
+            resolve({
+              code: res.data.code,
+              msg: res.data.data
+            })
+          } else {
+            // eslint-disable-next-line prefer-promise-reject-errors
+            reject({
+              code: res.data.code,
+              msg: res.data.reason
+            })
+          }
+        })
+        .catch((err) => {
+          console.log('-----OrderModel modelQueryOsku error', err)
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
+            code: 5000,
+            msg: '获取订单失败'
+          })
+        })
+    })
+  }
 }
 export default new OrderModel()

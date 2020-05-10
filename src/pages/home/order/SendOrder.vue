@@ -50,7 +50,7 @@
       </el-table>
     </div>
     <div>
-      <el-dialog title="编辑" :visible.sync="sendVisible" width="50%">
+      <el-dialog title="发货" :visible.sync="sendVisible" width="50%">
         <el-form :model="sendForm" label-width="80px">
           <el-form-item label="订单号" prop="name">
             <el-input v-model="sendForm.order" :disabled="true" style="width: 30vh"></el-input>
@@ -64,11 +64,52 @@
         </el-form>
       </el-dialog>
     </div>
+    <div>
+      <el-dialog title="详情" :visible.sync="searchVisible" width="50%">
+        <el-table
+          :data="skus"
+          style="width: 100%">
+          <el-table-column
+            fixed
+            prop="id"
+            label="id"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            prop="images"
+            label="图片"
+            width="400">
+            <template slot-scope="scope">
+              <el-image
+                style="width: 50%; height: 50%"
+                :src="'/api/shop_goods/file/down?fileId='+scope.row.images">
+              </el-image>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="price"
+            label="价格"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            prop="code"
+            label="商品编号"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            prop="specIds"
+            label="规格"
+            width="200">
+          </el-table-column>
+        </el-table>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 import Order from '../../../sdk/api/order'
+import Sku from '../../../sdk/api/sku'
 import Logistic from '../../../sdk/api/logistic'
 export default {
   name: 'sendOrder',
@@ -80,7 +121,6 @@ export default {
         payStatus: 2,
         onSuccess: (code, res) => {
           this.tableData = res
-          console.log(res)
         },
         onFailure: (code, err) => {
           console.log(code)
@@ -97,6 +137,31 @@ export default {
     // 查看订单详情
     searchHandle (row) {
       console.log(row)
+      this.searchVisible = true
+      Order.queryOsku({
+        orderId: row.id,
+        onSuccess: (code, res) => {
+          let skusT = []
+          for (let o of res) {
+            console.log(o.sku)
+            Sku.queryById({
+              sku: o.sku,
+              onSuccess: (code, res) => {
+                skusT.push(res)
+                this.skus = skusT
+              },
+              onFailure: (code, err) => {
+                console.log(code)
+                console.log(err)
+              }
+            })
+          }
+        },
+        onFailure: (code, err) => {
+          console.log(code)
+          console.log(err)
+        }
+      })
     },
     // 快递入库
     sendLogistic () {
@@ -124,7 +189,9 @@ export default {
     return {
       tableData: [],
       sendVisible: false,
-      sendForm: {}
+      searchVisible: false,
+      sendForm: {},
+      skus: []
     }
   },
   created () {

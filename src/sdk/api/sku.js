@@ -46,7 +46,23 @@ class Sku {
         onFailure(err.code, err.msg)
       })
   }
-
+  /**
+   * 根据逐渐查询详情
+   * @param sku
+   * @param onSuccess
+   * @param onFailure
+   */
+  queryById = ({sku, onSuccess, onFailure}) => {
+    model.modelQueryById({
+      sku: sku
+    })
+      .then((res) => {
+        onSuccess(res.code, res.msg)
+      })
+      .catch((err) => {
+        onFailure(err.code, err.msg)
+      })
+  }
   /**
    * 分页
    * @param index
