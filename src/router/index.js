@@ -86,7 +86,17 @@ export default new Router({
         {
           path: '/sendOrder',
           component: () => import(/* webpackChunkName: "404" */ '@/pages/home/order/SendOrder.vue'),
-          meta: { title: '发货' }
+          meta: { title: '等待发货' }
+        },
+        {
+          path: '/ingOrder',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/order/IngOrder.vue'),
+          meta: { title: '运送中' }
+        },
+        {
+          path: '/successOrder',
+          component: () => import(/* webpackChunkName: "404" */ '@/pages/home/order/SuccessOrder.vue'),
+          meta: { title: '成功签收' }
         },
         {
           path: '/404',

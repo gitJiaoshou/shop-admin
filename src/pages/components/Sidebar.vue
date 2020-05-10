@@ -130,7 +130,15 @@ export default {
           subs: [
             {
               index: 'sendOrder',
-              title: '发货'
+              title: '等待发货'
+            },
+            {
+              index: 'successOrder',
+              title: '已经签收'
+            },
+            {
+              index: 'ingOrder',
+              title: '运送中'
             }
           ]
         },
