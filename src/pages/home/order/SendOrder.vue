@@ -41,15 +41,9 @@
             </el-button>
             <el-button
               type="primary"
-              icon="el-icon-edit"
+              icon="el-icon-search"
               circle
-              @click="editHandle(scope.row)">
-            </el-button>
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              circle
-              @click="deleteHandle(scope.row)">
+              @click="searchHandle(scope.row)">
             </el-button>
           </template>
         </el-table-column>
@@ -99,6 +93,10 @@ export default {
       this.sendForm.order = row.id
       this.sendForm.receiver = row.ygwId
       this.sendVisible = true
+    },
+    // 查看订单详情
+    searchHandle (row) {
+      console.log(row)
     },
     // 快递入库
     sendLogistic () {
